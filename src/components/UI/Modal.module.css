@@ -9,9 +9,10 @@
 }
 
 .modal {
+  position: absolute;
+  top: 25vh;
   border: none;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 0;
   z-index: 20;
 }
