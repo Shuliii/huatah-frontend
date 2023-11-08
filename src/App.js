@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import RootLayout from "./pages/RootLayout";
+import NavigationPage from "./pages/NavigationPage";
+import BetListPage, { loader as betLoader } from "./pages/BetlistPage";
 // import { action as userAction } from "./components/Header";
 
 const router = createBrowserRouter([
@@ -10,14 +12,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <NavigationPage />,
         children: [
           {
-            path: "/dota",
+            path: "/:name",
+            element: <BetListPage />,
+            loader: betLoader,
           },
+          // { path: "/NBA", element: <BetListPage />, loader: betLoader },
         ],
       },
       {
-        path: "/profile",
+        path: "/profile/:name",
       },
     ],
   },

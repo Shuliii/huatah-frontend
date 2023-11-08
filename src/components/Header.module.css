@@ -2,11 +2,28 @@ header {
   padding: 32px;
   display: flex;
   justify-content: space-between;
+  position: relative;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  height: 2px;
 }
 
 header > .logo {
   width: 150px;
   display: block;
+}
+
+.loggedIn {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 
 .modalContent {
@@ -36,6 +53,10 @@ header > .logo {
 
 .modalContent > form > input::placeholder {
   font-weight: 300;
+}
+
+.modalContent > .error {
+  color: red;
 }
 
 .modalContent > .modalLast {

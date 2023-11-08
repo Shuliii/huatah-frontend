@@ -26,31 +26,38 @@ const Header = () => {
     setShowModal(false);
   };
 
+  const logoutHandler = () => {
+    dispatch(authActions.logOut());
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("profile");
+  };
+
   const getUser = async (param) => {
     const response = await fetch(
       `https://test-express-5gi8.onrender.com/user/${param}`
     );
     const resData = await response.json();
-    console.log(resData);
     return resData;
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const response = getUser(usernameRef.current.value);
-    console.log(response);
+    const input = usernameRef.current.value;
+    const response = await getUser(input);
 
     if (
       response.message === "successful" &&
-      response.data.isActive === "true"
+      response.data[0].isActive === "true"
     ) {
-      dispatch(authActions.logIn({ name: usernameRef.current.value }));
+      dispatch(authActions.logIn({ name: input }));
+      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("profile", input);
       setShowModal(false);
     }
 
     if (
       response.message === "successful" &&
-      response.data.isActive === "false"
+      response.data[0].isActive === "false"
     ) {
       setError("Please contact admin to activate the account!");
     }
@@ -69,10 +76,13 @@ const Header = () => {
         </Button>
       )}
       {isLoggedIn && (
-        <div>
-          <PiShoppingCartSimple />
+        <div className={styles.loggedIn}>
+          <PiShoppingCartSimple size={32} />
           <span>1</span>
-          <p>{profile}</p>
+          <span>{profile}</span>
+          <Button type="button" onClick={logoutHandler}>
+            Logout
+          </Button>
         </div>
       )}
 
@@ -91,7 +101,7 @@ const Header = () => {
                 ></input>
                 <Button type="submit">Login to your account</Button>
               </form>
-              <p>{error}</p>
+              {error && <p className={styles.error}>{error}</p>}
               <div className={styles.modalLast}>
                 <p>Don't have an account?</p>
                 <p>Please contact admin!</p>
