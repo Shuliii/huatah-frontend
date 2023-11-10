@@ -1,35 +1,11 @@
 .betlist {
   width: 50%;
   margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
   list-style-type: none;
   gap: 32px;
-}
-
-.listitem {
-  border: 2px solid black;
-  border-radius: 8px;
-  box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.2);
-  padding: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 120px;
-}
-
-.matchname {
-  display: flex;
-  flex: 1;
-  gap: 10px;
-}
-
-.matchname > div:nth-child(1) {
-  flex: 1;
-}
-
-.seemore {
-  font-weight: 300;
-  align-self: flex-end;
-  justify-self: flex-end;
+  flex: 20%;
+  flex-wrap: wrap;
 }

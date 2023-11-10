@@ -32,7 +32,7 @@ const Navigation = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to="/Counter-strike"
+          to="/CS"
         >
           Counter-strike
         </NavLink>

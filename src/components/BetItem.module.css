@@ -1,0 +1,56 @@
+.listitem {
+  border: 2px solid black;
+  border-radius: 8px;
+  box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 120px;
+}
+
+.matchname {
+  display: flex;
+  flex: 0;
+  gap: 10px;
+}
+
+.matchname > div:nth-child(1) {
+  flex: 1;
+}
+
+.betlistmain {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+}
+
+.betlistmain > .eachBet {
+  position: relative;
+  padding: 4px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  width: 100px;
+}
+
+.plus {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+}
+
+.seemore {
+  font-weight: 300;
+  flex: 1;
+  align-self: flex-end;
+}
+
+.seemore > span:nth-child(1) {
+  display: flex;
+  align-items: center;
+}
