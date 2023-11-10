@@ -1,17 +1,36 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../store/cart-slice";
+
+import EachBet from "./EachBet";
 
 import styles from "./BetItem.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { AiFillPlusCircle } from "react-icons/ai";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const BetItem = ({ item }) => {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.auth.profile);
   const [isExpand, setIsExpand] = useState(false);
+  //   const [addedToCartMap, setAddedToCartMap] = useState({});
 
   const seeMoreHandler = () => {
-    setIsExpand((prev) => {
-      return !prev;
-    });
+    setIsExpand((prev) => !prev);
+  };
+
+  //   const addedToCartHandler = (betName) => {
+  //     setAddedToCartMap((prev) => {
+  //       return { ...prev, [betName]: !prev[betName] };
+  //     });
+  //   };
+
+  const clickHandler = (data) => {
+    const toBeDispatch = {
+      Username: profile,
+      Match_Name: item.match_name,
+      Bet_Name: data.name,
+      Odds: data.odds,
+    };
+    dispatch(cartActions.addToCart({ item: toBeDispatch }));
   };
   return (
     <motion.li
@@ -25,17 +44,7 @@ const BetItem = ({ item }) => {
       </div>
       <div className={styles.betlistmain}>
         {item.main_bet_list.map((item) => {
-          return (
-            <div key={Math.random()} className={styles.eachBet}>
-              <div>{item.name}</div>
-              <div>{item.odds}</div>
-              <AiOutlinePlusCircle
-                size={12}
-                className={styles.plus}
-                color={"red"}
-              />
-            </div>
-          );
+          return <EachBet item={item} key={item.name} onClick={clickHandler} />;
         })}
       </div>
       <div className={styles.seemore}>
@@ -56,21 +65,7 @@ const BetItem = ({ item }) => {
           >
             {item.more_bet_list.map((item) => {
               return (
-                <motion.div
-                  initial={{ opacity: 0, y: -80 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, type: "spring" }}
-                  key={Math.random()}
-                  className={styles.eachBet}
-                >
-                  <div>{item.name}</div>
-                  <div>{item.odds}</div>
-                  <AiFillPlusCircle
-                    size={12}
-                    className={styles.plus}
-                    color={"red"}
-                  />
-                </motion.div>
+                <EachBet item={item} key={item.name} onClick={clickHandler} />
               );
             })}
           </motion.div>

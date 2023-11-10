@@ -9,21 +9,24 @@ import Modal from "./UI/Modal";
 
 import styles from "./Header.module.css";
 import { PiShoppingCartSimple } from "react-icons/pi";
-import logo from "../assets/logo_red.png";
+import logo from "../assets/logo_white.png";
 
 const Header = () => {
   const dispatch = useDispatch();
   const usernameRef = useRef();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const profile = useSelector((state) => state.auth.profile);
-  const [showModal, setShowModal] = useState(false);
+  const cart = useSelector((state) => state.cart.cart);
+  const [showLogIn, setshowLogIn] = useState(false);
   const [error, setError] = useState("");
 
+  console.log(cart);
+
   const loginHandler = () => {
-    setShowModal(true);
+    setshowLogIn(true);
   };
   const closeHandler = () => {
-    setShowModal(false);
+    setshowLogIn(false);
   };
 
   const logoutHandler = () => {
@@ -52,7 +55,7 @@ const Header = () => {
       dispatch(authActions.logIn({ name: input }));
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("profile", input);
-      setShowModal(false);
+      setshowLogIn(false);
     }
 
     if (
@@ -77,8 +80,11 @@ const Header = () => {
       )}
       {isLoggedIn && (
         <div className={styles.loggedIn}>
-          <PiShoppingCartSimple size={32} />
-          <span>1</span>
+          <div className={styles.cart}>
+            <PiShoppingCartSimple size={32} />
+            <div>{cart.length}</div>
+          </div>
+
           <span>{profile}</span>
           <Button type="button" onClick={logoutHandler}>
             Logout
@@ -87,7 +93,7 @@ const Header = () => {
       )}
 
       <AnimatePresence>
-        {showModal && (
+        {showLogIn && (
           <Modal onClose={closeHandler}>
             <div className={styles.modalContent}>
               <h1>Login</h1>

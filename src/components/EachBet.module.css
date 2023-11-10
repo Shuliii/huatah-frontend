@@ -1,0 +1,19 @@
+.eachBet {
+  position: relative;
+  padding: 4px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  width: 100px;
+}
+
+.plus,
+.minus {
+  cursor: pointer;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+}

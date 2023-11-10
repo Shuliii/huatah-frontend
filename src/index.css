@@ -25,6 +25,7 @@ code {
 }
 
 body {
+  padding-top: 158px;
   max-width: 1920px;
   margin-inline: auto;
   min-height: 100vh;
