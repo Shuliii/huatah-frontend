@@ -6,7 +6,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 120px;
+  min-height: 150px;
+  align-self: flex-start;
+  width: 350px;
 }
 
 .matchname {
@@ -26,7 +28,17 @@
   font-size: 10px;
 }
 
-.betlistmain > .eachBet {
+.betlistmore {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin-inline: auto;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+}
+
+.eachBet {
   position: relative;
   padding: 4px;
   border: 1px solid black;
@@ -39,6 +51,7 @@
 }
 
 .plus {
+  cursor: pointer;
   position: absolute;
   right: 3px;
   bottom: 3px;
@@ -47,10 +60,7 @@
 .seemore {
   font-weight: 300;
   flex: 1;
-  align-self: flex-end;
-}
-
-.seemore > span:nth-child(1) {
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
 }

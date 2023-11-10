@@ -1,11 +1,9 @@
 .betlist {
-  width: 50%;
+  width: 70%;
   margin-inline: auto;
-  /* display: grid;
-  grid-template-columns: 1fr 1fr; */
   list-style-type: none;
   gap: 32px;
   display: flex;
-  flex: 20%;
   flex-wrap: wrap;
+  justify-content: center;
 }
