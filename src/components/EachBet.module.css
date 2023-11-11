@@ -17,3 +17,10 @@
   right: 3px;
   bottom: 3px;
 }
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 32px;
+}
