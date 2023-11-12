@@ -6,10 +6,24 @@ const cartSlice = createSlice({
     cart: [],
   },
   reducers: {
-    addToCart(state, action) {
-      console.log(state);
-      console.log(action.payload);
-      state.cart.push(action.payload.item);
+    toggleToCart(state, action) {
+      const itemToRemove = state.cart.find(
+        (item) => item.Helper_ID === action.payload.item.Helper_ID
+      );
+
+      if (itemToRemove) {
+        return {
+          ...state,
+          cart: state.cart.filter(
+            (item) => item.Helper_ID !== action.payload.item.Helper_ID
+          ),
+        };
+      }
+
+      return {
+        ...state,
+        cart: [...state.cart, action.payload.item],
+      };
     },
   },
 });

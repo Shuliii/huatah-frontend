@@ -5,16 +5,16 @@ import Modal from "./UI/Modal";
 
 import styles from "./EachBet.module.css";
 import { motion } from "framer-motion";
-import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
-const EachBet = ({ item, onClick }) => {
+const EachBet = ({ item, onClick, isBetActive }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const [addedToCart, setAddedToCart] = useState(false);
   const [hasError, setError] = useState("");
 
   const plusClickHandler = () => {
     if (!isLoggedIn) {
       setError("Please LogIn before placing any bets!");
+      document.body.style.overflow = "hidden";
       return;
     }
     const data = {
@@ -23,16 +23,11 @@ const EachBet = ({ item, onClick }) => {
       sign: "plus",
     };
     onClick(data);
-    setAddedToCart(true);
-  };
-
-  const minusClickHandler = () => {
-    // Implement logic for removing the bet if needed
-    setAddedToCart(false);
   };
 
   const closeHandler = () => {
     setError("");
+    document.body.style.overflow = "unset";
   };
 
   return (
@@ -41,26 +36,19 @@ const EachBet = ({ item, onClick }) => {
         initial={{ opacity: 0, y: -80 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, type: "spring" }}
-        className={styles.eachBet}
+        className={
+          isBetActive ? `${styles.eachBet} + ${styles.active}` : styles.eachBet
+        }
+        onClick={plusClickHandler}
       >
         <div>{item.name}</div>
         <div>{item.odds}</div>
-        {!addedToCart && (
-          <AiOutlinePlusCircle
-            size={12}
-            className={styles.plus}
-            color={"red"}
-            onClick={plusClickHandler}
-          />
-        )}
-        {addedToCart && (
-          <AiOutlineMinusCircle
-            size={12}
-            className={styles.minus}
-            color={"red"}
-            onClick={minusClickHandler}
-          />
-        )}
+        <AiOutlinePlusCircle
+          size={12}
+          className={styles.plus}
+          color={"red"}
+          onClick={plusClickHandler}
+        />
       </motion.div>
       {hasError && (
         <Modal onClose={closeHandler}>

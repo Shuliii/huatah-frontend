@@ -10,6 +10,10 @@
   width: 100px;
 }
 
+.active {
+  border: 1px solid red;
+}
+
 .plus,
 .minus {
   cursor: pointer;

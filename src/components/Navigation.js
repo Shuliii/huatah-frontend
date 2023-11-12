@@ -34,7 +34,7 @@ const Navigation = () => {
           className={({ isActive }) => (isActive ? styles.active : undefined)}
           to="/CS"
         >
-          Counter-strike
+          CS
         </NavLink>
       </li>
       <li>

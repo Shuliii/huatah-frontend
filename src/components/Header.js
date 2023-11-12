@@ -20,12 +20,12 @@ const Header = () => {
   const [showLogIn, setshowLogIn] = useState(false);
   const [error, setError] = useState("");
 
-  console.log(cart);
-
   const loginHandler = () => {
+    document.body.style.overflow = "hidden";
     setshowLogIn(true);
   };
   const closeHandler = () => {
+    document.body.style.overflow = "unset";
     setshowLogIn(false);
   };
 

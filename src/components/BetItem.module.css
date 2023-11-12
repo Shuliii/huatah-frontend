@@ -11,6 +11,10 @@
   width: 350px;
 }
 
+.active {
+  border: 2px solid red;
+}
+
 .matchname {
   display: flex;
   flex: 0;
@@ -23,7 +27,7 @@
 
 .betlistmain {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 10px;
   font-size: 10px;
 }
