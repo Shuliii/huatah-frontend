@@ -43,12 +43,7 @@ const EachBet = ({ item, onClick, isBetActive }) => {
       >
         <div>{item.name}</div>
         <div>{item.odds}</div>
-        <AiOutlinePlusCircle
-          size={12}
-          className={styles.plus}
-          color={"red"}
-          onClick={plusClickHandler}
-        />
+        <AiOutlinePlusCircle size={12} className={styles.plus} color={"red"} />
       </motion.div>
       {hasError && (
         <Modal onClose={closeHandler}>

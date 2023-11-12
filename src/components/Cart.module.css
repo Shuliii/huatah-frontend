@@ -4,14 +4,13 @@
   max-height: 50vh;
 }
 
-.modalContent > ul {
-  list-style-type: none;
+.modalContent > form {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.modalContent > ul > li {
+.modalContent > form > .postBetContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +18,7 @@
   gap: 32px;
 }
 
-.modalContent > ul > li::after {
+.modalContent > form > .postBetContainer::after {
   position: absolute;
   width: 100%;
   left: 0;
@@ -49,6 +48,12 @@
   padding: 3px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .buttonContainer {
   margin-top: 32px;
   display: flex;
@@ -64,4 +69,5 @@
   width: 100%;
   border: 2px solid black;
   padding-inline: 4em;
+  padding-block: 1rem;
 }

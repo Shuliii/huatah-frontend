@@ -8,6 +8,7 @@ import { cartActions } from "../store/cart-slice";
 import Button from "./UI/Button";
 import Login from "./Login";
 import Cart from "./Cart";
+import ShowSuccess from "./ShowSuccess";
 
 import styles from "./Header.module.css";
 import { PiShoppingCartSimple } from "react-icons/pi";
@@ -20,6 +21,7 @@ const Header = () => {
   const cart = useSelector((state) => state.cart.cart);
   const [showLogIn, setshowLogIn] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const loginHandler = () => {
     document.body.style.overflow = "hidden";
@@ -35,6 +37,7 @@ const Header = () => {
     document.body.style.overflow = "unset";
     setshowLogIn(false);
     setShowCart(false);
+    setShowSuccess(false);
   };
 
   const logoutHandler = () => {
@@ -42,6 +45,28 @@ const Header = () => {
     dispatch(authActions.logOut());
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("profile");
+  };
+
+  const submitHandler = async (e) => {
+    const res = await fetch("http://localhost:3030/postbet", {
+      method: "POST",
+      body: JSON.stringify(cart),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      console.log("There is an error!");
+    }
+    const resData = await res.json();
+
+    if (resData.message === "successful") {
+      dispatch(cartActions.removeAllCart());
+      closeHandler();
+      document.body.style.overflow = "hidden";
+      setShowSuccess(true);
+    }
   };
 
   return (
@@ -71,7 +96,11 @@ const Header = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {showCart && <Cart onClose={closeHandler} />}
+        {showCart && <Cart onClose={closeHandler} onSubmit={submitHandler} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showSuccess && <ShowSuccess onClose={closeHandler} />}
       </AnimatePresence>
     </header>
   );

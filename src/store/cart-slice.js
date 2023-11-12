@@ -32,6 +32,19 @@ const cartSlice = createSlice({
         cart: [],
       };
     },
+
+    addAmount(state, action) {
+      const updatedCart = state.cart.map((item) =>
+        item.Helper_ID === action.payload.item.Helper_ID
+          ? { ...item, Amount: +action.payload.item.Amount }
+          : item
+      );
+
+      return {
+        ...state,
+        cart: updatedCart,
+      };
+    },
   },
 });
 
