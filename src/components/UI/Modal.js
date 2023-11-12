@@ -32,12 +32,24 @@ const Modal = ({ children, onClose }) => {
       {createPortal(
         <motion.div
           initial={{
+            position: "fixed",
+            top: "70%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             opacity: 0,
           }}
           animate={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             opacity: 1,
           }}
           exit={{
+            position: "fixed",
+            top: "70%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             opacity: 0,
           }}
           transition={{

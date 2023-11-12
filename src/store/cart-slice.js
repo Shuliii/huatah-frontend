@@ -25,6 +25,13 @@ const cartSlice = createSlice({
         cart: [...state.cart, action.payload.item],
       };
     },
+
+    removeAllCart(state) {
+      return {
+        ...state,
+        cart: [],
+      };
+    },
   },
 });
 

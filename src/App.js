@@ -19,7 +19,6 @@ const router = createBrowserRouter([
             element: <BetListPage />,
             loader: betLoader,
           },
-          // { path: "/NBA", element: <BetListPage />, loader: betLoader },
         ],
       },
       {

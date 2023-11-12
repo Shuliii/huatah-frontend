@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import { authActions } from "../store/auth-slice";
+import { cartActions } from "../store/cart-slice";
 
 import Button from "./UI/Button";
-import Modal from "./UI/Modal";
+import Login from "./Login";
+import Cart from "./Cart";
 
 import styles from "./Header.module.css";
 import { PiShoppingCartSimple } from "react-icons/pi";
@@ -13,61 +15,33 @@ import logo from "../assets/logo_white.png";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const usernameRef = useRef();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const profile = useSelector((state) => state.auth.profile);
   const cart = useSelector((state) => state.cart.cart);
   const [showLogIn, setshowLogIn] = useState(false);
-  const [error, setError] = useState("");
+  const [showCart, setShowCart] = useState(false);
 
   const loginHandler = () => {
     document.body.style.overflow = "hidden";
     setshowLogIn(true);
   };
+
+  const cartHandler = () => {
+    document.body.style.overflow = "hidden";
+    setShowCart(true);
+  };
+
   const closeHandler = () => {
     document.body.style.overflow = "unset";
     setshowLogIn(false);
+    setShowCart(false);
   };
 
   const logoutHandler = () => {
+    dispatch(cartActions.removeAllCart());
     dispatch(authActions.logOut());
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("profile");
-  };
-
-  const getUser = async (param) => {
-    const response = await fetch(
-      `https://test-express-5gi8.onrender.com/user/${param}`
-    );
-    const resData = await response.json();
-    return resData;
-  };
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const input = usernameRef.current.value;
-    const response = await getUser(input);
-
-    if (
-      response.message === "successful" &&
-      response.data[0].isActive === "true"
-    ) {
-      dispatch(authActions.logIn({ name: input }));
-      localStorage.setItem("isLoggedIn", true);
-      localStorage.setItem("profile", input);
-      setshowLogIn(false);
-    }
-
-    if (
-      response.message === "successful" &&
-      response.data[0].isActive === "false"
-    ) {
-      setError("Please contact admin to activate the account!");
-    }
-
-    if (response.message !== "successful") {
-      setError("Username does not exist, please create Username");
-    }
   };
 
   return (
@@ -80,7 +54,7 @@ const Header = () => {
       )}
       {isLoggedIn && (
         <div className={styles.loggedIn}>
-          <div className={styles.cart}>
+          <div className={styles.cart} onClick={cartHandler}>
             <PiShoppingCartSimple size={32} />
             <div>{cart.length}</div>
           </div>
@@ -93,28 +67,11 @@ const Header = () => {
       )}
 
       <AnimatePresence>
-        {showLogIn && (
-          <Modal onClose={closeHandler}>
-            <div className={styles.modalContent}>
-              <h1>Login</h1>
-              <form onSubmit={submitHandler}>
-                <input
-                  required
-                  name="name"
-                  type="text"
-                  placeholder="Username"
-                  ref={usernameRef}
-                ></input>
-                <Button type="submit">Login to your account</Button>
-              </form>
-              {error && <p className={styles.error}>{error}</p>}
-              <div className={styles.modalLast}>
-                <p>Don't have an account?</p>
-                <p>Please contact admin!</p>
-              </div>
-            </div>
-          </Modal>
-        )}
+        {showLogIn && <Login onClose={closeHandler} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showCart && <Cart onClose={closeHandler} />}
       </AnimatePresence>
     </header>
   );
