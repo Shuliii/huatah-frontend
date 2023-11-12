@@ -29,6 +29,12 @@
   content: "";
 }
 
+.betInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 form > input {
   border: none;
   outline: none;
@@ -37,4 +43,25 @@ form > input {
   width: 50px;
   display: flex;
   align-items: center;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 3px;
+}
+
+.buttonContainer {
+  margin-top: 32px;
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.buttonCancel {
+  outline: none;
+  border: none;
+  background: none;
+  width: 100%;
+  border: 2px solid black;
+  padding-inline: 4em;
 }

@@ -1,4 +1,6 @@
 header {
+  max-width: 1920px;
+  margin-inline: auto;
   padding: 32px;
   display: flex;
   justify-content: space-between;
