@@ -55,6 +55,7 @@ const Login = ({ onClose }) => {
             name="name"
             type="text"
             placeholder="Username"
+            autoComplete="off"
             ref={usernameRef}
           ></input>
           <Button type="submit">Login to your account</Button>

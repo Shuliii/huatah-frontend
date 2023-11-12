@@ -17,7 +17,7 @@ const Cart = ({ onClose }) => {
         <div>{item.Bet_Name}</div>
         <div>Odds: {item.Odds}</div>
       </div>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className={styles.lastForm}>
         <input type="number" min="0" required />
       </form>
     </li>
