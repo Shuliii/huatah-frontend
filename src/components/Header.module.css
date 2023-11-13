@@ -21,7 +21,19 @@ header::after {
   height: 2px;
 }
 
-header > .logo {
+@media (max-width: 600px) {
+  header {
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding-left: 0;
+  }
+}
+
+header > a > .logo {
   width: 150px;
   display: block;
 }
@@ -36,7 +48,7 @@ header > .logo {
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 2px solid black;
+  border: 2px solid white;
   border-radius: 8px;
   padding: 10px;
   width: 80px;
@@ -47,4 +59,29 @@ header > .logo {
   background: red;
   padding: 4px;
   border-radius: 8px;
+}
+
+.profile {
+  position: relative;
+  cursor: pointer;
+  color: white;
+  text-transform: uppercase;
+}
+
+.profile > .profileul {
+  position: absolute;
+  list-style-type: none;
+  bottom: -110px;
+  background: #eee;
+  color: black;
+  font-size: 12px;
+}
+
+.profileul > li {
+  padding: 8px;
+}
+
+.profileul > li > a {
+  text-decoration: none;
+  color: black;
 }

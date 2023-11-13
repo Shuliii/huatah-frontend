@@ -13,4 +13,7 @@
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   z-index: 20;
+  max-width: 90%;
+  margin-inline: auto;
+  overflow: hidden;
 }

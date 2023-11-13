@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
 import NavigationPage from "./pages/NavigationPage";
 import BetListPage, { loader as betLoader } from "./pages/BetlistPage";
-// import { action as userAction } from "./components/Header";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +23,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile/:name",
+        element: <ProfilePage />,
+        children: [{ path: "summary" }, { path: "active-bets" }],
       },
     ],
   },

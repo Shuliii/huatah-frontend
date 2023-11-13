@@ -1,0 +1,36 @@
+.navigation {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  padding-block: 32px;
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.navigation::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  height: 2px;
+}
+
+.navigation > li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.navigation > li > a {
+  text-decoration: none;
+  font-size: 16px;
+  color: black;
+}
+
+.navigation > li > a.active {
+  color: red;
+}

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import { authActions } from "../store/auth-slice";
 import { cartActions } from "../store/cart-slice";
@@ -23,6 +24,7 @@ const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [successModalData, setSuccessModalData] = useState([]);
+  const [hoverState, setHoverState] = useState(false);
 
   const loginHandler = () => {
     document.body.style.overflow = "hidden";
@@ -81,7 +83,10 @@ const Header = () => {
 
   return (
     <header>
-      <img src={logo} alt="huatah-logo" className={styles.logo} />
+      <Link to="/">
+        <img src={logo} alt="huatah-logo" className={styles.logo} />
+      </Link>
+
       {!isLoggedIn && (
         <Button type="button" onClick={loginHandler}>
           Login
@@ -89,15 +94,31 @@ const Header = () => {
       )}
       {isLoggedIn && (
         <div className={styles.loggedIn}>
-          <div className={styles.cart} onClick={cartHandler}>
-            <PiShoppingCartSimple size={32} />
+          <motion.div
+            animate={{ scale: [1, 1.2, 0.9, 1] }}
+            transition={{ duration: 0.3 }}
+            key={cart}
+            className={styles.cart}
+            onClick={cartHandler}
+          >
+            <PiShoppingCartSimple size={32} color={"white"} />
             <div>{cart.length}</div>
-          </div>
+          </motion.div>
 
-          <span>{profile}</span>
-          <Button type="button" onClick={logoutHandler}>
-            Logout
-          </Button>
+          <div
+            className={styles.profile}
+            onClick={() => setHoverState((prev) => !prev)}
+          >
+            <span>{profile}</span>
+            {hoverState && (
+              <ul className={styles.profileul}>
+                <li>
+                  <Link to={`/profile/${profile}`}>View Profile</Link>
+                </li>
+                <li onClick={logoutHandler}>Logout</li>
+              </ul>
+            )}
+          </div>
         </div>
       )}
 

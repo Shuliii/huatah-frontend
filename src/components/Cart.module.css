@@ -1,7 +1,7 @@
 .modalContent {
   padding: 32px;
-  overflow-y: scroll;
   max-height: 50vh;
+  overflow-y: scroll;
 }
 
 .modalContent > form {
@@ -66,8 +66,20 @@ input::-webkit-inner-spin-button {
   outline: none;
   border: none;
   background: none;
-  width: 100%;
+  /* width: 100%; */
   border: 2px solid black;
   padding-inline: 4em;
   padding-block: 1rem;
+}
+
+@media (max-width: 540px) {
+  .buttonCancel {
+    padding-inline: 2.5em;
+  }
+}
+
+@media (max-width: 400px) {
+  .buttonCancel {
+    padding-inline: 1.5em;
+  }
 }
