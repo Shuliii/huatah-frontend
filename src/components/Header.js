@@ -22,6 +22,7 @@ const Header = () => {
   const [showLogIn, setshowLogIn] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [successModalData, setSuccessModalData] = useState([]);
 
   const loginHandler = () => {
     document.body.style.overflow = "hidden";
@@ -48,24 +49,33 @@ const Header = () => {
   };
 
   const submitHandler = async (e) => {
-    const res = await fetch("http://localhost:3030/postbet", {
-      method: "POST",
-      body: JSON.stringify(cart),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      //https://test-express-5gi8.onrender.com
+      //http://localhost:3030/postbet
+      const res = await fetch(
+        "https://test-express-5gi8.onrender.com/postbet",
+        {
+          method: "POST",
+          body: JSON.stringify(cart),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) {
+        console.log("There is an error!");
+      } else {
+        const resText = await res.text();
+        const resData = resText ? JSON.parse(resText) : null;
+        setSuccessModalData(resData);
 
-    if (!res.ok) {
-      console.log("There is an error!");
-    }
-    const resData = await res.json();
-
-    if (resData.message === "successful") {
-      dispatch(cartActions.removeAllCart());
-      closeHandler();
-      document.body.style.overflow = "hidden";
-      setShowSuccess(true);
+        dispatch(cartActions.removeAllCart());
+        closeHandler();
+        document.body.style.overflow = "hidden";
+        setShowSuccess(true);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -100,7 +110,9 @@ const Header = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {showSuccess && <ShowSuccess onClose={closeHandler} />}
+        {showSuccess && (
+          <ShowSuccess onClose={closeHandler} data={successModalData} />
+        )}
       </AnimatePresence>
     </header>
   );

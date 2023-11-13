@@ -11,7 +11,6 @@ import styles from "./Cart.module.css";
 const Cart = ({ onClose, onSubmit }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
-
   //to get each input value
   let refArr = [];
   const addValueHandler = (item, i) => {
