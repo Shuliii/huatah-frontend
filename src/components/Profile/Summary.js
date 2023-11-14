@@ -20,40 +20,45 @@ const Summary = () => {
     },
   };
 
-  const trHelper = summary.map((item) => (
-    <motion.tr
-      variants={staggerVariants}
-      key={item.ID}
-      className={item.Bet_Result === "W" ? styles.win : styles.lose}
-    >
-      <td>{item.Match_Name}</td>
-      <td>{item.Bet_Name}</td>
-      <td>{item.Amount}</td>
-      <td>{item.Odds}</td>
-      <td>{item.Bet_Result}</td>
-      <td>{item.Balance.toFixed(2)}</td>
-    </motion.tr>
-  ));
+  const trHelper =
+    summary &&
+    summary.map((item) => (
+      <motion.tr
+        variants={staggerVariants}
+        key={item.ID}
+        className={item.Bet_Result === "W" ? styles.win : styles.lose}
+      >
+        <td>{item.Match_Name}</td>
+        <td>{item.Bet_Name}</td>
+        <td>{item.Amount}</td>
+        <td>{item.Odds}</td>
+        <td>{item.Bet_Result}</td>
+        <td>{item.Balance.toFixed(2)}</td>
+      </motion.tr>
+    ));
   return (
     <div className={styles.tableContainer}>
       {/* <motion.table animate={{ opacity: [0, 0.5, 1] }}> */}
-      <motion.table
-        initial="initial"
-        animate="animate"
-        variants={staggerVariants}
-      >
-        <thead>
-          <tr>
-            <th>Match Name</th>
-            <th>Bet Name</th>
-            <th>Bet Amount</th>
-            <th>Odds</th>
-            <th>Bet Result</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <motion.tbody>{trHelper}</motion.tbody>
-      </motion.table>
+      {summary && (
+        <motion.table
+          initial="initial"
+          animate="animate"
+          variants={staggerVariants}
+        >
+          <thead>
+            <tr>
+              <th>Match Name</th>
+              <th>Bet Name</th>
+              <th>Bet Amount</th>
+              <th>Odds</th>
+              <th>Bet Result</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <motion.tbody>{trHelper}</motion.tbody>
+        </motion.table>
+      )}
+      {!summary && <div>There are no past bets!</div>}
     </div>
   );
 };
