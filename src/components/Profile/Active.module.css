@@ -1,0 +1,26 @@
+.activeList {
+  width: 70%;
+  margin-inline: auto;
+  list-style-type: none;
+  gap: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.activeItem {
+  border: 2px solid black;
+  border-radius: 8px;
+  box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 350px;
+}
+
+.matchname {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}

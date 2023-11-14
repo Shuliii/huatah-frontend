@@ -4,6 +4,8 @@ import RootLayout from "./pages/RootLayout";
 import NavigationPage from "./pages/NavigationPage";
 import BetListPage, { loader as betLoader } from "./pages/BetlistPage";
 import ProfilePage from "./pages/ProfilePage";
+import ActivePage from "./pages/ActivePage";
+import SummaryPage from "./pages/SummaryPage";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/profile/:name",
         element: <ProfilePage />,
-        children: [{ path: "summary" }, { path: "active-bets" }],
+        children: [
+          { path: "summary", element: <SummaryPage /> },
+          { path: "active-bets", element: <ActivePage /> },
+        ],
       },
     ],
   },

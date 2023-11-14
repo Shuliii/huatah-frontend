@@ -1,0 +1,56 @@
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  margin-inline: auto;
+}
+
+table {
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+thead > tr > th {
+  padding: 12px;
+}
+
+tbody > tr > td {
+  padding: 6px;
+}
+
+thead {
+  width: 100%;
+  background: black;
+  color: white;
+  font-size: 20px;
+}
+
+.lose {
+  background: rgba(185, 14, 10, 0.8);
+  color: white;
+}
+
+.win {
+  background: rgba(0, 255, 0, 0.5);
+  color: black;
+}
+
+@media (max-width: 540px) {
+  thead {
+    font-size: 15px;
+  }
+
+  tbody {
+    font-size: 12px;
+  }
+
+  thead > tr > th {
+    padding: 6px;
+  }
+
+  tbody > tr > td {
+    padding: 3px;
+  }
+}

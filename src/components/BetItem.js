@@ -14,7 +14,6 @@ const BetItem = ({ item }) => {
   const active = useSelector((state) => state.activeBet.data);
   const [isExpand, setIsExpand] = useState(false);
   let isMatchActive = false;
-  console.log(active);
 
   //style for LI border
   const cartMatchName = cart.map((item) => item.Match_Name);

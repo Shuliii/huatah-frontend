@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { activeBetActions } from "../store/activeBet-slice";
+import { summaryActions } from "../store/summary-slice";
 
 import Header from "../components/Header";
 
@@ -19,7 +20,25 @@ const RootLayout = () => {
       dispatch(activeBetActions.replaceData({ item: resData.data }));
     }
 
+    async function getSummary() {
+      const response = await fetch(
+        `https://test-express-5gi8.onrender.com/summary/${profile}`
+      );
+      const resData = await response.json();
+      dispatch(summaryActions.replaceData({ item: resData.data }));
+    }
+
+    async function getBalance() {
+      const response = await fetch(
+        `https://test-express-5gi8.onrender.com/balance/${profile}`
+      );
+      const resData = await response.json();
+      dispatch(summaryActions.replaceBalance({ item: resData.data }));
+    }
+
     getActive();
+    getSummary();
+    getBalance();
   }, [profile, dispatch, cart]);
   return (
     <>

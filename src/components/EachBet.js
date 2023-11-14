@@ -30,6 +30,10 @@ const EachBet = ({ item, onClick, isBetActive }) => {
     document.body.style.overflow = "unset";
   };
 
+  //odds helper
+  const odds = +item.odds;
+  const oddsHelper = odds.toFixed(2);
+
   return (
     <>
       <motion.div
@@ -42,7 +46,7 @@ const EachBet = ({ item, onClick, isBetActive }) => {
         onClick={plusClickHandler}
       >
         <div>{item.name}</div>
-        <div>{item.odds}</div>
+        <div>{oddsHelper}</div>
         <AiOutlinePlusCircle size={12} className={styles.plus} color={"red"} />
       </motion.div>
       {hasError && (

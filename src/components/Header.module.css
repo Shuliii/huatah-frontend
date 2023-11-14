@@ -71,7 +71,7 @@ header > a > .logo {
 .profile > .profileul {
   position: absolute;
   list-style-type: none;
-  bottom: -110px;
+  bottom: -100px;
   background: #eee;
   color: black;
   font-size: 12px;

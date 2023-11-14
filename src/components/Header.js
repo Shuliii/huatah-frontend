@@ -20,6 +20,7 @@ const Header = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const profile = useSelector((state) => state.auth.profile);
   const cart = useSelector((state) => state.cart.cart);
+  const balance = useSelector((state) => state.summary.balance);
   const [showLogIn, setshowLogIn] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -81,6 +82,9 @@ const Header = () => {
     }
   };
 
+  //balance Helper
+  const balanceHelper = balance[0].balance.toFixed(2);
+
   return (
     <header>
       <Link to="/">
@@ -109,7 +113,11 @@ const Header = () => {
             className={styles.profile}
             onClick={() => setHoverState((prev) => !prev)}
           >
-            <span>{profile}</span>
+            <div>
+              <div>{profile}</div>
+              <div>{balanceHelper}</div>
+            </div>
+
             {hoverState && (
               <ul className={styles.profileul}>
                 <li>
