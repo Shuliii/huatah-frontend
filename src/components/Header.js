@@ -83,8 +83,8 @@ const Header = () => {
   };
 
   //balance Helper
-  const balanceHelper = balance && balance[0].balance;
-  const formattedBalance = balanceHelper && balanceHelper.toFixed(2);
+  // const balanceHelper = balance && balance[0].balance;
+  const formattedBalance = balance && balance.toFixed(2);
 
   return (
     <header>
