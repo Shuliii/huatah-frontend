@@ -83,7 +83,7 @@ const Header = () => {
   };
 
   //balance Helper
-  const balanceHelper = balance[0].balance.toFixed(2);
+  const balanceHelper = balance !== undefined && balance[0].balance.toFixed(2);
 
   return (
     <header>
@@ -115,7 +115,7 @@ const Header = () => {
           >
             <div>
               <div>{profile}</div>
-              <div>{balanceHelper}</div>
+              {balance && <div>{balanceHelper}</div>}
             </div>
 
             {hoverState && (
