@@ -17,3 +17,21 @@
   margin-inline: auto;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .modal {
+    width: 60%;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 90%;
+  }
+}

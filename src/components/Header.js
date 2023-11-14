@@ -93,9 +93,11 @@ const Header = () => {
       </Link>
 
       {!isLoggedIn && (
-        <Button type="button" onClick={loginHandler}>
-          Login
-        </Button>
+        <div>
+          <Button type="button" onClick={loginHandler}>
+            Login
+          </Button>
+        </div>
       )}
       {isLoggedIn && (
         <div className={styles.loggedIn}>
