@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import { authActions } from "../store/auth-slice";
 import { cartActions } from "../store/cart-slice";
+import { activeBetActions } from "../store/activeBet-slice";
+import { summaryActions } from "../store/summary-slice";
 
 import Button from "./UI/Button";
 import Login from "./Login";
@@ -47,6 +49,8 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(cartActions.removeAllCart());
     dispatch(authActions.logOut());
+    dispatch(activeBetActions.removeData());
+    dispatch(summaryActions.removeData());
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("profile");
   };
@@ -83,7 +87,6 @@ const Header = () => {
   };
 
   //balance Helper
-  // const balanceHelper = balance && balance[0].balance;
   const formattedBalance = balance && balance.toFixed(2);
 
   return (

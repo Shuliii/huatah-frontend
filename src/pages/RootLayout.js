@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
-import { getBalance } from "../util/http";
+import { getBalance, getSummary } from "../util/http";
 import { activeBetActions } from "../store/activeBet-slice";
 import { summaryActions } from "../store/summary-slice";
 
@@ -13,8 +13,6 @@ const RootLayout = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.auth.profile);
   const cart = useSelector((state) => state.cart.cart);
-  const summary = useSelector((state) => state.summary.balance);
-  console.log(summary);
 
   useEffect(() => {
     async function getActive() {
@@ -25,13 +23,13 @@ const RootLayout = () => {
       dispatch(activeBetActions.replaceData({ item: resData.data }));
     }
 
-    async function getSummary() {
-      const response = await fetch(
-        `https://test-express-5gi8.onrender.com/summary/${profile}`
-      );
-      const resData = await response.json();
-      dispatch(summaryActions.replaceData({ item: resData.data }));
-    }
+    // async function getSummary() {
+    //   const response = await fetch(
+    //     `https://test-express-5gi8.onrender.com/summary/${profile}`
+    //   );
+    //   const resData = await response.json();
+    //   dispatch(summaryActions.replaceData({ item: resData.data }));
+    // }
 
     // async function getBalance() {
     //   const response = await fetch(
@@ -42,36 +40,51 @@ const RootLayout = () => {
     // }
 
     getActive();
-    getSummary();
-    // getBalance();
   }, [profile, dispatch, cart]);
 
   const {
+    data: summaryData,
+    isLoading: summaryIsLoading,
+    isError: summaryIsError,
+    error: summaryError,
+  } = useQuery({
+    queryKey: ["summary", profile],
+    queryFn: () => getSummary(profile),
+    refetchInterval: 30000,
+  });
+
+  const {
     data: balanceData,
-    isLoading,
-    isSuccess,
-    isError,
+    isLoading: balanceIsLoading,
+    isError: balanceIsError,
     error: balanceError,
   } = useQuery({
     queryKey: ["balance", profile],
     queryFn: () => getBalance(profile),
-    // onSuccess: consoleLog,
-    // dispatch(summaryActions.replaceBalance({ item: data }));
+    refetchInterval: 30000,
   });
-  if (isLoading) {
+
+  useEffect(() => {
+    if (balanceData) {
+      dispatch(summaryActions.replaceBalance({ item: balanceData }));
+    }
+
+    if (summaryData) {
+      dispatch(summaryActions.replaceData({ item: summaryData.data }));
+    }
+  }, [balanceData, summaryData, dispatch]);
+
+  if (balanceIsLoading || summaryIsLoading) {
     return <p style={{ textAlign: "center" }}>Loading...</p>;
   }
 
-  if (isError) {
+  if (balanceIsError || summaryIsError) {
     return (
       <p style={{ textAlign: "center" }}>
+        Error loading data: {summaryError.message}
         Error loading data: {balanceError.message}
       </p>
     );
-  }
-
-  if (isSuccess) {
-    dispatch(summaryActions.replaceBalance({ item: balanceData }));
   }
 
   return (

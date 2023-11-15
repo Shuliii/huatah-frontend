@@ -37,6 +37,11 @@ thead {
   color: black;
 }
 
+.na {
+  background: white;
+  color: black;
+}
+
 @media (max-width: 540px) {
   thead {
     font-size: 15px;

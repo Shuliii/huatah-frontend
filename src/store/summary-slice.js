@@ -15,6 +15,9 @@ const summarySlice = createSlice({
     replaceBalance(state, action) {
       state.balance = action.payload.item;
     },
+    removeData(state) {
+      state = initialState;
+    },
   },
 });
 

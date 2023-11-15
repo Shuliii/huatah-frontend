@@ -11,6 +11,9 @@ const activeBetSlice = createSlice({
     replaceData(state, action) {
       state.data = action.payload.item;
     },
+    removeData(state) {
+      state = initialState;
+    },
   },
 });
 

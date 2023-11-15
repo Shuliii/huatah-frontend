@@ -1,6 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-import { summaryActions } from "../store/summary-slice";
-
 export async function getBets(name) {
   try {
     const url = `https://test-express-5gi8.onrender.com/${name}`;
@@ -24,7 +21,6 @@ export async function getBalance(profile) {
   const response = await fetch(
     `https://test-express-5gi8.onrender.com/balance/${profile}`
   );
-
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
     console.error(`Request failed with status ${response.status}`);
@@ -32,8 +28,22 @@ export async function getBalance(profile) {
   }
 
   const { data } = await response.json();
-  const balance = data[0].balance;
-  //   const dispatch = useDispatch();
-  //   dispatch(summaryActions.replaceBalance({ item: balance }));
+  const balance = data ? data[0].balance : "0.00";
+
   return balance;
+}
+
+export async function getSummary(profile) {
+  const response = await fetch(
+    `https://test-express-5gi8.onrender.com/summary/${profile}`
+  );
+
+  if (!response.ok) {
+    const error = new Error("An error occured while fetching the events");
+    console.error(`Request failed with status ${response.status}`);
+    throw error;
+  }
+
+  const resData = await response.json();
+  return resData;
 }

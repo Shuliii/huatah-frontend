@@ -22,20 +22,28 @@ const Summary = () => {
 
   const trHelper =
     summary &&
-    summary.map((item) => (
-      <motion.tr
-        variants={staggerVariants}
-        key={item.ID}
-        className={item.Bet_Result === "W" ? styles.win : styles.lose}
-      >
-        <td>{item.Match_Name}</td>
-        <td>{item.Bet_Name}</td>
-        <td>{item.Amount}</td>
-        <td>{item.Odds}</td>
-        <td>{item.Bet_Result}</td>
-        <td>{item.Balance.toFixed(2)}</td>
-      </motion.tr>
-    ));
+    summary.map((item) => {
+      //class helper
+      let classHelper;
+      if (item.Bet_Result === "W") classHelper = styles.win;
+      if (item.Bet_Result === "L") classHelper = styles.lose;
+      if (item.Bet_Result === "NA") classHelper = styles.na;
+
+      return (
+        <motion.tr
+          variants={staggerVariants}
+          key={item.ID}
+          className={classHelper}
+        >
+          <td>{item.Match_Name}</td>
+          <td>{item.Bet_Name}</td>
+          <td>{item.Amount}</td>
+          <td>{item.Odds}</td>
+          <td>{item.Bet_Result}</td>
+          <td>{item.Balance.toFixed(2)}</td>
+        </motion.tr>
+      );
+    });
   return (
     <div className={styles.tableContainer}>
       {/* <motion.table animate={{ opacity: [0, 0.5, 1] }}> */}
