@@ -47,3 +47,17 @@ export async function getSummary(profile) {
   const resData = await response.json();
   return resData;
 }
+
+export async function getActive(profile) {
+  const response = await fetch(
+    `https://test-express-5gi8.onrender.com/active/${profile}`
+  );
+
+  if (!response.ok) {
+    const error = new Error("An error occured while fetching the events");
+    console.error(`Request failed with status ${response.status}`);
+    throw error;
+  }
+  const resData = await response.json();
+  return resData;
+}

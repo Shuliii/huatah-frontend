@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
-import { getBalance, getSummary } from "../util/http";
+import { getBalance, getSummary, getActive } from "../util/http";
 import { activeBetActions } from "../store/activeBet-slice";
 import { summaryActions } from "../store/summary-slice";
 
@@ -14,33 +14,16 @@ const RootLayout = () => {
   const profile = useSelector((state) => state.auth.profile);
   const cart = useSelector((state) => state.cart.cart);
 
-  useEffect(() => {
-    async function getActive() {
-      const response = await fetch(
-        `https://test-express-5gi8.onrender.com/active/${profile}`
-      );
-      const resData = await response.json();
-      dispatch(activeBetActions.replaceData({ item: resData.data }));
-    }
-
-    // async function getSummary() {
-    //   const response = await fetch(
-    //     `https://test-express-5gi8.onrender.com/summary/${profile}`
-    //   );
-    //   const resData = await response.json();
-    //   dispatch(summaryActions.replaceData({ item: resData.data }));
-    // }
-
-    // async function getBalance() {
-    //   const response = await fetch(
-    //     `https://test-express-5gi8.onrender.com/balance/${profile}`
-    //   );
-    //   const resData = await response.json();
-    //   dispatch(summaryActions.replaceBalance({ item: resData.data }));
-    // }
-
-    getActive();
-  }, [profile, dispatch, cart]);
+  const {
+    data: activeData,
+    isLoading: activeIsLoading,
+    isError: activeIsError,
+    error: activeError,
+  } = useQuery({
+    queryKey: ["active", profile],
+    queryFn: () => getActive(profile),
+    refetchInterval: 30000,
+  });
 
   const {
     data: summaryData,
@@ -72,17 +55,26 @@ const RootLayout = () => {
     if (summaryData) {
       dispatch(summaryActions.replaceData({ item: summaryData.data }));
     }
-  }, [balanceData, summaryData, dispatch]);
 
-  if (balanceIsLoading || summaryIsLoading) {
+    if (activeData) {
+      dispatch(activeBetActions.replaceData({ item: activeData.data }));
+    }
+  }, [balanceData, summaryData, activeData, dispatch]);
+
+  if (balanceIsLoading || summaryIsLoading || activeIsLoading) {
     return <p style={{ textAlign: "center" }}>Loading...</p>;
   }
 
-  if (balanceIsError || summaryIsError) {
+  if (balanceIsError || summaryIsError || activeIsError) {
     return (
       <p style={{ textAlign: "center" }}>
-        Error loading data: {summaryError.message}
-        Error loading data: {balanceError.message}
+        Error loading data:
+        <br />
+        Summary: {summaryError && summaryError.message}
+        <br />
+        Balance: {balanceError && balanceError.message}
+        <br />
+        Active: {activeError && activeError.message}
       </p>
     );
   }
