@@ -18,6 +18,7 @@ const Button = (props) => {
       type={props.type}
       onClick={props.onClick}
       className={styles.button}
+      disabled={props.isDisabled}
     >
       {props.children}
     </motion.button>

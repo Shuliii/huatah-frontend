@@ -62,14 +62,22 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
 }
 
-.buttonCancel {
+.buttonCancel,
+.buttonSubmitting {
   outline: none;
   border: none;
   background: none;
-  /* width: 100%; */
+  width: 50%;
   border: 2px solid black;
-  padding-inline: 4em;
   padding-block: 1rem;
+}
+
+.buttonCancel {
+  padding-inline: 4em;
+}
+
+.buttonSubmitting {
+  padding-inline: 3em;
 }
 
 @media (max-width: 540px) {

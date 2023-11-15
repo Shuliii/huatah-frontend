@@ -5,7 +5,7 @@ const ShowSuccess = ({ onClose, data }) => {
   let success = 0;
   let notSuccess = 0;
 
-  data.response.forEach((item) => {
+  data.forEach((item) => {
     item.message === "successful" ? success++ : notSuccess++;
   });
 

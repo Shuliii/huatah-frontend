@@ -1,6 +1,8 @@
 import { createRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
 
+import { postBet, queryClient } from "../util/http";
 import { cartActions } from "../store/cart-slice";
 
 import Modal from "./UI/Modal";
@@ -47,6 +49,14 @@ const Cart = ({ onClose, onSubmit }) => {
     );
   });
 
+  const { mutate, isIdle } = useMutation({
+    mutationFn: postBet,
+    onSuccess: (data) => {
+      onSubmit(data);
+      queryClient.invalidateQueries({ queryKey: ["active"] });
+    },
+  });
+
   const submitHandler = async (e) => {
     e.preventDefault();
     //check if all refs have value
@@ -61,7 +71,7 @@ const Cart = ({ onClose, onSubmit }) => {
       return; // This will exit the function when any condition is met.
     }
 
-    onSubmit();
+    mutate(cart);
   };
 
   return (
@@ -78,7 +88,13 @@ const Cart = ({ onClose, onSubmit }) => {
               >
                 Cancel
               </button>
-              <Button type="submit">Submit</Button>
+              {!isIdle ? (
+                <button className={styles.buttonSubmitting} disabled>
+                  Submitting...
+                </button>
+              ) : (
+                <Button type="submit">Submit</Button>
+              )}
             </div>
           </form>
         )}

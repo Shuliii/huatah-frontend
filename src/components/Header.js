@@ -55,35 +55,12 @@ const Header = () => {
     localStorage.removeItem("profile");
   };
 
-  const submitHandler = async (e) => {
-    try {
-      //https://test-express-5gi8.onrender.com
-      //http://localhost:3030/postbet
-      const res = await fetch(
-        "https://test-express-5gi8.onrender.com/postbet",
-        {
-          method: "POST",
-          body: JSON.stringify(cart),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!res.ok) {
-        console.log("There is an error!");
-      } else {
-        const resText = await res.text();
-        const resData = resText ? JSON.parse(resText) : null;
-        setSuccessModalData(resData);
-
-        dispatch(cartActions.removeAllCart());
-        closeHandler();
-        document.body.style.overflow = "hidden";
-        setShowSuccess(true);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  const submitHandler = (data) => {
+    dispatch(cartActions.removeAllCart());
+    closeHandler();
+    document.body.style.overflow = "hidden";
+    setSuccessModalData(data);
+    setShowSuccess(true);
   };
 
   //balance Helper
