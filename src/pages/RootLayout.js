@@ -8,11 +8,11 @@ import { activeBetActions } from "../store/activeBet-slice";
 import { summaryActions } from "../store/summary-slice";
 
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.auth.profile);
-  const cart = useSelector((state) => state.cart.cart);
 
   const {
     data: activeData,
@@ -23,6 +23,7 @@ const RootLayout = () => {
     queryKey: ["active", profile],
     queryFn: () => getActive(profile),
     refetchInterval: 30000,
+    enabled: profile !== null,
   });
 
   const {
@@ -34,6 +35,7 @@ const RootLayout = () => {
     queryKey: ["summary", profile],
     queryFn: () => getSummary(profile),
     refetchInterval: 30000,
+    enabled: profile !== null,
   });
 
   const {
@@ -45,6 +47,7 @@ const RootLayout = () => {
     queryKey: ["balance", profile],
     queryFn: () => getBalance(profile),
     refetchInterval: 30000,
+    enabled: profile !== null,
   });
 
   useEffect(() => {
@@ -85,6 +88,7 @@ const RootLayout = () => {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 };

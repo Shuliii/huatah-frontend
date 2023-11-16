@@ -64,7 +64,7 @@ const Header = () => {
   };
 
   //balance Helper
-  const formattedBalance = balance && balance.toFixed(2);
+  const formattedBalance = balance ? balance.toFixed(2) : "0.00";
 
   return (
     <header>
@@ -101,14 +101,20 @@ const Header = () => {
               {formattedBalance && <div>{formattedBalance}</div>}
             </div>
 
-            {hoverState && (
-              <ul className={styles.profileul}>
-                <li>
-                  <Link to={`/profile/${profile}`}>View Profile</Link>
-                </li>
-                <li onClick={logoutHandler}>Logout</li>
-              </ul>
-            )}
+            <AnimatePresence>
+              {hoverState && (
+                <motion.ul
+                  animate={{ opacity: [0, 1], y: [-20, 0] }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className={styles.profileul}
+                >
+                  <li>
+                    <Link to={`/profile/${profile}`}>View Profile</Link>
+                  </li>
+                  <li onClick={logoutHandler}>Logout</li>
+                </motion.ul>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       )}

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -7,6 +8,10 @@ import BetList from "../components/Betlist";
 
 const BetlistPage = () => {
   const { name } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data, error, isError, isLoading } = useQuery({
     queryKey: ["bets", name],

@@ -4,7 +4,9 @@ export const queryClient = new QueryClient();
 
 export async function getBets(name) {
   try {
-    const url = `https://test-express-5gi8.onrender.com/${name}`;
+    //https://test-express-5gi8.onrender.com/${name}
+    //http://localhost:3030/${name}
+    const url = `http://localhost:3030/${name}`;
     const response = await fetch(url);
 
     if (!response.ok) {

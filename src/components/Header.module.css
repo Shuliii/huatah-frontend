@@ -5,7 +5,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   background: red;
@@ -30,7 +30,7 @@ header::after {
 
 @media (max-width: 480px) {
   header {
-    padding-left: 0;
+    padding-left: 8px;
   }
 }
 
@@ -73,13 +73,27 @@ header > a > .logo {
   position: absolute;
   list-style-type: none;
   bottom: -100px;
-  background: #eee;
+  background: white;
   color: black;
   font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid black;
+  z-index: 999;
 }
 
 .profileul > li {
   padding: 8px;
+  position: relative;
+}
+
+.profileul > li:not(:last-child)::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: black;
 }
 
 .profileul > li > a {

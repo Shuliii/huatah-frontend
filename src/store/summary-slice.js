@@ -16,7 +16,8 @@ const summarySlice = createSlice({
       state.balance = action.payload.item;
     },
     removeData(state) {
-      state = initialState;
+      state.balance = "";
+      state.data = [];
     },
   },
 });
