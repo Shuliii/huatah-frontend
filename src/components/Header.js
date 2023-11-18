@@ -75,7 +75,7 @@ const Header = () => {
       </Link>
 
       {!isLoggedIn && (
-        <div>
+        <div className={styles.buttonContainer}>
           <Button type="button" onClick={loginHandler}>
             Login
           </Button>

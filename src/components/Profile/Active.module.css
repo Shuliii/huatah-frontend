@@ -18,10 +18,42 @@
   flex-direction: column;
   gap: 10px;
   width: 350px;
+  position: relative;
 }
 
 .matchname {
   display: flex;
   justify-content: space-between;
   font-size: 20px;
+}
+
+.deleteIcon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.modalContent {
+  padding: 32px;
+  font-size: 20px;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonCancel,
+.buttonSubmitting {
+  outline: none;
+  border: none;
+  background: none;
+  width: 100%;
+  border: 2px solid black;
+  padding-block: 1rem;
 }

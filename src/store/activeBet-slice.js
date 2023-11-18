@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: null,
+  data: [],
 };
 
 const activeBetSlice = createSlice({
@@ -12,7 +12,7 @@ const activeBetSlice = createSlice({
       state.data = action.payload.item;
     },
     removeData(state) {
-      return { ...state, data: null };
+      return { ...state, data: [] };
     },
   },
 });

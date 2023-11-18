@@ -39,6 +39,10 @@ header > a > .logo {
   display: block;
 }
 
+.buttonContainer {
+  width: 100px;
+}
+
 .loggedIn {
   display: flex;
   gap: 16px;

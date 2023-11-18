@@ -18,7 +18,9 @@ const BetItem = ({ item }) => {
   //style for LI border
   const cartMatchName = cart.map((item) => item.Match_Name);
   const activeMatchName =
-    active !== undefined ? active.map((item) => item.Match_Name) : [];
+    active !== undefined && active !== null
+      ? active.map((item) => item.Match_Name)
+      : [];
   cartMatchName.forEach((element) => {
     if (item.match_name === element) {
       isMatchActive = true;

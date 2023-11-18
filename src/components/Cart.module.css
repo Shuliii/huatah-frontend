@@ -56,10 +56,11 @@ input::-webkit-inner-spin-button {
 
 .buttonContainer {
   margin-top: 32px;
-  display: flex;
+  display: grid;
   gap: 32px;
-  width: 100%;
+  grid-template-columns: 1fr 1fr;
   justify-content: space-between;
+  align-items: center;
 }
 
 .buttonCancel,
@@ -67,27 +68,7 @@ input::-webkit-inner-spin-button {
   outline: none;
   border: none;
   background: none;
-  width: 50%;
+  width: 100%;
   border: 2px solid black;
   padding-block: 1rem;
-}
-
-.buttonCancel {
-  padding-inline: 4em;
-}
-
-.buttonSubmitting {
-  padding-inline: 3em;
-}
-
-@media (max-width: 540px) {
-  .buttonCancel {
-    padding-inline: 2.5em;
-  }
-}
-
-@media (max-width: 400px) {
-  .buttonCancel {
-    padding-inline: 1.5em;
-  }
 }

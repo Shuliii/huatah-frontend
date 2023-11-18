@@ -72,6 +72,7 @@ export async function postBet(cart) {
   try {
     //https://test-express-5gi8.onrender.com
     //http://localhost:3030/postbet
+    console.log(cart);
     const res = await fetch("https://test-express-5gi8.onrender.com/postbet", {
       method: "POST",
       body: JSON.stringify(cart),
@@ -81,6 +82,32 @@ export async function postBet(cart) {
     });
     if (!res.ok) {
       const error = new Error("An error occured while fetching the events");
+      console.error(`Request failed with status ${res.status}`);
+      throw error;
+    } else {
+      const { response } = await res.json();
+      return response;
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+export async function deleteBet(id) {
+  try {
+    //https://test-express-5gi8.onrender.com
+    //http://localhost:3030/postbet
+    console.log(id);
+    const res = await fetch(
+      `https://test-express-5gi8.onrender.com/delete/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!res.ok) {
+      const error = new Error("An error occured while deleting the events");
       console.error(`Request failed with status ${res.status}`);
       throw error;
     } else {

@@ -20,7 +20,6 @@ const EachBet = ({ item, onClick, isBetActive }) => {
     const data = {
       name: item.name,
       odds: item.odds,
-      sign: "plus",
     };
     onClick(data);
   };

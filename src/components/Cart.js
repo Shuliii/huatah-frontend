@@ -49,7 +49,7 @@ const Cart = ({ onClose, onSubmit }) => {
     );
   });
 
-  const { mutate, isIdle } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: postBet,
     onSuccess: (data) => {
       onSubmit(data);
@@ -88,12 +88,14 @@ const Cart = ({ onClose, onSubmit }) => {
               >
                 Cancel
               </button>
-              {!isIdle ? (
+              {isLoading ? (
                 <button className={styles.buttonSubmitting} disabled>
                   Submitting...
                 </button>
               ) : (
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className={styles.button}>
+                  Submit
+                </Button>
               )}
             </div>
           </form>

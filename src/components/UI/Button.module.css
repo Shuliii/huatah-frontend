@@ -1,23 +1,11 @@
 .button {
   cursor: pointer;
-  padding-inline: 4em;
   padding-block: 1rem;
+  width: 100%;
   background: red;
   border: 2px solid white;
   color: white;
   outline: none;
   border-radius: 10px;
   box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width: 540px) {
-  .button {
-    padding-inline: 2.5em;
-  }
-}
-
-@media (max-width: 400px) {
-  .button {
-    padding-inline: 1.5em;
-  }
 }
