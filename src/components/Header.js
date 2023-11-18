@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { authActions } from "../store/auth-slice";
 import { cartActions } from "../store/cart-slice";
@@ -18,6 +18,7 @@ import { PiShoppingCartSimple } from "react-icons/pi";
 import logo from "../assets/logo_white.png";
 
 const Header = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const profile = useSelector((state) => state.auth.profile);
@@ -53,6 +54,7 @@ const Header = () => {
     dispatch(summaryActions.removeData());
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("profile");
+    navigate("/");
   };
 
   const submitHandler = (data) => {

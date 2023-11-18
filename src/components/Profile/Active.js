@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 
 const Active = () => {
   const active = useSelector((state) => state.activeBet.data);
+  console.log(active);
 
   const liHelper =
-    active !== undefined ? (
+    active !== null ? (
       active.map((item) => {
         //Potential Winning Helper
         const potential = (+item.Odds - 1) * item.Amount;

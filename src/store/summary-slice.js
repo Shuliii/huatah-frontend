@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  balance: "",
-  data: [],
+  balance: null,
+  data: null,
 };
 
 const summarySlice = createSlice({
@@ -16,8 +16,8 @@ const summarySlice = createSlice({
       state.balance = action.payload.item;
     },
     removeData(state) {
-      state.balance = "";
-      state.data = [];
+      state.balance = null;
+      state.data = null;
     },
   },
 });
