@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  balance: null,
-  data: null,
+  balance: "",
+  data: [],
 };
 
 const summarySlice = createSlice({

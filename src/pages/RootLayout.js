@@ -65,7 +65,17 @@ const RootLayout = () => {
   }, [balanceData, summaryData, activeData, dispatch]);
 
   if (balanceIsLoading || summaryIsLoading || activeIsLoading) {
-    return <p style={{ textAlign: "center" }}>Loading...</p>;
+    return (
+      <p style={{ textAlign: "center" }}>
+        Error loading data:
+        <br />
+        Summary: {summaryIsLoading}
+        <br />
+        Balance: {balanceIsLoading}
+        <br />
+        Active: {activeIsLoading}
+      </p>
+    );
   }
 
   if (balanceIsError || summaryIsError || activeIsError) {

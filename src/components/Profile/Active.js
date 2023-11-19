@@ -28,7 +28,7 @@ const Active = () => {
     mutate(param);
   };
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: deleteBet,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["active"] });
@@ -87,7 +87,7 @@ const Active = () => {
               >
                 Cancel
               </button>
-              {isLoading ? (
+              {isPending ? (
                 <button className={styles.buttonSubmitting} disabled>
                   Deleting...
                 </button>
