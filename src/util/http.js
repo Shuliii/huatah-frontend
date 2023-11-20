@@ -72,7 +72,6 @@ export async function postBet(cart) {
   try {
     //https://test-express-5gi8.onrender.com
     //http://localhost:3030/postbet
-    console.log(cart);
     const res = await fetch("https://test-express-5gi8.onrender.com/postbet", {
       method: "POST",
       body: JSON.stringify(cart),
@@ -111,8 +110,8 @@ export async function deleteBet(id) {
       console.error(`Request failed with status ${res.status}`);
       throw error;
     } else {
-      const { response } = await res.json();
-      return response;
+      const { message } = await res.json();
+      return message;
     }
   } catch (error) {
     console.error("Error fetching data:", error);

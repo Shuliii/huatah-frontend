@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import Modal from "../UI/Modal";
@@ -11,10 +10,11 @@ import styles from "./Active.module.css";
 import { AiTwotoneDelete } from "react-icons/ai";
 
 const Active = () => {
-  const navigate = useNavigate();
   const active = useSelector((state) => state.activeBet.data);
   const [showModal, setShowModal] = useState(false);
   const [betItem, setBetItem] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState("");
 
   const staggerVariants = {
     initial: {
@@ -26,6 +26,7 @@ const Active = () => {
       scale: 1,
       transition: {
         staggerChildren: 0.05, // Adjust the stagger duration as needed
+        when: "beforeChildren", // Ensures that child animations are applied before the parent
       },
     },
   };
@@ -37,6 +38,7 @@ const Active = () => {
 
   const closeHandler = () => {
     setShowModal(false);
+    setShowMessage(false);
   };
 
   const deleteHandler = (param) => {
@@ -45,10 +47,13 @@ const Active = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: deleteBet,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["active"] });
       closeHandler();
-      navigate(".");
+      setMessage(data);
+      setShowMessage(true);
+      // navigate(".");
+      // console.log(data);
     },
   });
 
@@ -131,6 +136,12 @@ const Active = () => {
               </Button> */}
             </div>
           </div>
+        </Modal>
+      )}
+
+      {showMessage && (
+        <Modal onClose={closeHandler}>
+          <div className={styles.modalContent}>{message}</div>
         </Modal>
       )}
     </>
