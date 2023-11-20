@@ -123,10 +123,23 @@ const BetItem = ({ item }) => {
   };
   const time = matchDateTime.toLocaleString("en-US", options);
 
+  const variants = {
+    initial: {
+      y: 70,
+      opacity: 0,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
   return (
     <motion.li
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
+      variants={variants}
       className={
         isMatchActive
           ? `${styles.listitem} + ${styles.active}`
