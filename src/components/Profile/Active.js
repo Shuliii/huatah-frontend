@@ -26,7 +26,7 @@ const Active = () => {
       scale: 1,
       transition: {
         staggerChildren: 0.05, // Adjust the stagger duration as needed
-        when: "beforeChildren", // Ensures that child animations are applied before the parent
+        // when: "beforeChildren", // Ensures that child animations are applied before the parent
       },
     },
   };

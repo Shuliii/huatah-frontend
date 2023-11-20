@@ -16,13 +16,13 @@ const BetList = (props) => {
       },
     },
   };
-  const key = Math.random();
+
   const LiHelper = props.data.map((item) => {
-    return <BetItem item={item} key={key} />;
+    return <BetItem item={item} key={Math.random()} />;
   });
   return (
     <motion.ul
-      key={key}
+      key={Math.random()}
       initial="initial"
       animate="animate"
       variants={variants}

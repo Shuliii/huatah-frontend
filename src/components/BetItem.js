@@ -61,8 +61,23 @@ const BetItem = ({ item }) => {
     dispatch(cartActions.toggleToCart({ item: toBeDispatch }));
   };
 
+  //variants
+  const variants = {
+    initial: {
+      y: 70,
+      opacity: 0,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
   //mainbet Helper
-  const mainBetHelper = item.main_bet_list.map((item) => {
+  const mainBetHelper = item.main_bet_list.map((item, index) => {
     let isBetActive = false;
     cartBetName.forEach((element) => {
       if (item.name === element) {
@@ -122,20 +137,6 @@ const BetItem = ({ item }) => {
     minute: "numeric",
   };
   const time = matchDateTime.toLocaleString("en-US", options);
-
-  const variants = {
-    initial: {
-      y: 70,
-      opacity: 0,
-    },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
 
   return (
     <motion.li
