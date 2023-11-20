@@ -24,7 +24,7 @@ header::after {
 
 @media (max-width: 600px) {
   header {
-    padding-inline: 16px;
+    padding: 16px;
   }
 }
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import Modal from "../UI/Modal";
 import Button from "../UI/Button";
 import { deleteBet, queryClient } from "../../util/http";
@@ -14,6 +15,20 @@ const Active = () => {
   const active = useSelector((state) => state.activeBet.data);
   const [showModal, setShowModal] = useState(false);
   const [betItem, setBetItem] = useState(null);
+
+  const staggerVariants = {
+    initial: {
+      opacity: 0,
+      scale: 0.5,
+    },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        staggerChildren: 0.05, // Adjust the stagger duration as needed
+      },
+    },
+  };
 
   const clickHandler = (item) => {
     setShowModal(true);
@@ -44,7 +59,11 @@ const Active = () => {
         const potential = (+item.Odds - 1) * item.Amount;
         const formattedPotential = potential.toFixed(2);
         return (
-          <li key={item.ID} className={styles.activeItem}>
+          <motion.li
+            variants={staggerVariants}
+            key={item.ID}
+            className={styles.activeItem}
+          >
             <div className={styles.matchname}>
               <div style={{ color: "red" }}>{item.Match_Name}</div>
               <div>{item.Amount}</div>
@@ -66,7 +85,7 @@ const Active = () => {
               color={"red"}
               onClick={() => clickHandler(item)}
             />
-          </li>
+          </motion.li>
         );
       })
     ) : (
@@ -74,7 +93,14 @@ const Active = () => {
     );
   return (
     <>
-      <ul className={styles.activeList}>{liHelper}</ul>
+      <motion.ul
+        initial="initial"
+        animate="animate"
+        variants={staggerVariants}
+        className={styles.activeList}
+      >
+        {liHelper}
+      </motion.ul>
       {showModal && (
         <Modal onClose={closeHandler}>
           <div className={styles.modalContent}>
