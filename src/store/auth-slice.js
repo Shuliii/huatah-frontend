@@ -6,6 +6,7 @@ const profile = localStorage.getItem("profile");
 const initialState = {
   isLoggedIn: isLoggedIn === "true" ? true : false,
   profile: profile,
+  isAdmin: false,
 };
 
 const authSlice = createSlice({
@@ -15,10 +16,12 @@ const authSlice = createSlice({
     logIn(state, action) {
       state.isLoggedIn = true;
       state.profile = action.payload.name;
+      state.isAdmin = action.payload.isAdmin;
     },
     logOut(state) {
       state.isLoggedIn = false;
       state.profile = null;
+      state.isAdmin = false;
     },
   },
 });

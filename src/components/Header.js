@@ -22,8 +22,11 @@ const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const profile = useSelector((state) => state.auth.profile);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
   const cart = useSelector((state) => state.cart.cart);
   const balance = useSelector((state) => state.summary.balance);
+  console.log(isLoggedIn, profile, isAdmin);
+
   const [showLogIn, setshowLogIn] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -113,6 +116,7 @@ const Header = () => {
                   <li>
                     <Link to={`/profile/${profile}`}>View Profile</Link>
                   </li>
+                  {isAdmin && <li>Admin Page</li>}
                   <li onClick={logoutHandler}>Logout</li>
                 </motion.ul>
               )}

@@ -27,7 +27,12 @@ const Login = ({ onClose }) => {
       response.message === "successful" &&
       response.data[0].isActive === "true"
     ) {
-      dispatch(authActions.logIn({ name: input }));
+      dispatch(
+        authActions.logIn({
+          name: input,
+          isAdmin: response.data[0].isAdmin === "true" ? true : false,
+        })
+      );
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("profile", input);
 
