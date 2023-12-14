@@ -25,7 +25,6 @@ const Header = () => {
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const cart = useSelector((state) => state.cart.cart);
   const balance = useSelector((state) => state.summary.balance);
-  console.log(isLoggedIn, profile, isAdmin);
 
   const [showLogIn, setshowLogIn] = useState(false);
   const [showCart, setShowCart] = useState(false);

@@ -11,6 +11,7 @@ const Login = ({ onClose }) => {
   const [error, setError] = useState("");
 
   const getUser = async (param) => {
+    console.log("logging in...");
     const response = await fetch(
       `https://test-express-5gi8.onrender.com/user/${param}`
     );
@@ -22,15 +23,15 @@ const Login = ({ onClose }) => {
     e.preventDefault();
     const input = usernameRef.current.value;
     const response = await getUser(input);
-
+    console.log(await response);
     if (
       response.message === "successful" &&
-      response.data[0].isActive === "true"
+      response.data[0].isActive === "True"
     ) {
       dispatch(
         authActions.logIn({
           name: input,
-          isAdmin: response.data[0].isAdmin === "true" ? true : false,
+          isAdmin: response.data[0].isAdmin === "True" ? true : false,
         })
       );
       localStorage.setItem("isLoggedIn", true);
@@ -41,7 +42,7 @@ const Login = ({ onClose }) => {
 
     if (
       response.message === "successful" &&
-      response.data[0].isActive === "false"
+      response.data[0].isActive === "False"
     ) {
       setError("Please contact admin to activate the account!");
     }

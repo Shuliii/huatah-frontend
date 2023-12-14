@@ -72,6 +72,7 @@ export async function postBet(cart) {
   try {
     //https://test-express-5gi8.onrender.com
     //http://localhost:3030/postbet
+    console.log(cart);
     const res = await fetch("https://test-express-5gi8.onrender.com/postbet", {
       method: "POST",
       body: JSON.stringify(cart),
