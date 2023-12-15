@@ -14,7 +14,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logIn(state, action) {
-      console.log("this is dispatch login");
       state.isLoggedIn = true;
       state.profile = action.payload.name;
       state.isAdmin = action.payload.isAdmin;

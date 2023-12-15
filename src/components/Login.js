@@ -11,10 +11,7 @@ const Login = ({ onClose }) => {
   const [error, setError] = useState("");
 
   const getUser = async (param) => {
-    console.log("logging in...");
-    const response = await fetch(
-      `https://test-express-5gi8.onrender.com/user/${param}`
-    );
+    const response = await fetch(`http://47.128.95.51:3030/user/${param}`);
     const resData = await response.json();
     return resData;
   };
@@ -23,7 +20,6 @@ const Login = ({ onClose }) => {
     e.preventDefault();
     const input = usernameRef.current.value;
     const response = await getUser(input);
-    console.log(await response);
     if (
       response.message === "successful" &&
       response.data[0].isActive === "True"
