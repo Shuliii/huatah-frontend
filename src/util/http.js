@@ -7,7 +7,7 @@ export async function getBets(name) {
     //https://test-express-5gi8.onrender.com/${name}
     //http://localhost:3030/${name}
     //http://47.128.95.51:3030/${name}
-    const url = `https://test-express-5gi8.onrender.com/${name}`;
+    const url = `http://47.128.95.51:3030/${name}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -25,9 +25,7 @@ export async function getBets(name) {
 }
 
 export async function getBalance(profile) {
-  const response = await fetch(
-    `https://test-express-5gi8.onrender.com/balance/${profile}`
-  );
+  const response = await fetch(`http://47.128.95.51:3030/balance/${profile}`);
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
     console.error(`Request failed with status ${response.status}`);
@@ -41,9 +39,7 @@ export async function getBalance(profile) {
 }
 
 export async function getSummary(profile) {
-  const response = await fetch(
-    `https://test-express-5gi8.onrender.com/summary/${profile}`
-  );
+  const response = await fetch(`http://47.128.95.51:3030/summary/${profile}`);
 
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
@@ -56,9 +52,7 @@ export async function getSummary(profile) {
 }
 
 export async function getActive(profile) {
-  const response = await fetch(
-    `https://test-express-5gi8.onrender.com/active/${profile}`
-  );
+  const response = await fetch(`http://47.128.95.51:3030/active/${profile}`);
 
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
@@ -71,10 +65,10 @@ export async function getActive(profile) {
 
 export async function postBet(cart) {
   try {
-    //https://test-express-5gi8.onrender.com
+    //http://47.128.95.51:3030
     //http://localhost:3030/postbet
     console.log(cart);
-    const res = await fetch("https://test-express-5gi8.onrender.com/postbet", {
+    const res = await fetch("http://47.128.95.51:3030/postbet", {
       method: "POST",
       body: JSON.stringify(cart),
       headers: {
@@ -97,15 +91,12 @@ export async function postBet(cart) {
 
 export async function deleteBet(id) {
   try {
-    //https://test-express-5gi8.onrender.com
+    //http://47.128.95.51:3030
     //http://localhost:3030/postbet
     console.log(id);
-    const res = await fetch(
-      `https://test-express-5gi8.onrender.com/delete/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const res = await fetch(`http://47.128.95.51:3030/delete/${id}`, {
+      method: "DELETE",
+    });
 
     if (!res.ok) {
       const error = new Error("An error occured while deleting the events");
