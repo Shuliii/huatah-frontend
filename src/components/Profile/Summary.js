@@ -5,6 +5,7 @@ import styles from "./Summary.module.css";
 
 const Summary = () => {
   const summary = useSelector((state) => state.summary.data);
+  console.log(summary);
 
   const staggerVariants = {
     initial: {
@@ -46,7 +47,6 @@ const Summary = () => {
     });
   return (
     <div className={styles.tableContainer}>
-      {/* <motion.table animate={{ opacity: [0, 0.5, 1] }}> */}
       {summary && (
         <motion.table
           initial="initial"
