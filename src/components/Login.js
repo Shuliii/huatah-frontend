@@ -12,7 +12,7 @@ const Login = ({ onClose }) => {
 
   const getUser = async (param) => {
     const response = await fetch(
-      `https://test-express-5gi8.onrender.com/${param}`
+      `https://test-express-5gi8.onrender.com/user/${param}`
     );
     const resData = await response.json();
     return resData;
