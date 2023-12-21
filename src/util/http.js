@@ -7,7 +7,7 @@ export async function getBets(name) {
     //https://test-express-5gi8.onrender.com/${name}
     //http://localhost:3030/${name}
     //http://47.128.95.51:3030/${name}
-    const url = `https://test-express-5gi8.onrender.com/${name}`;
+    const url = `http://47.128.95.51:3030/${name}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
