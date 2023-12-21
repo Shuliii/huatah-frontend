@@ -11,7 +11,7 @@ const Login = ({ onClose }) => {
   const [error, setError] = useState("");
 
   const getUser = async (param) => {
-    const response = await fetch(`http://localhost:3030/user/${param}`);
+    const response = await fetch(`http://47.128.95.51:3030/user/${param}`);
     const resData = await response.json();
     return resData;
   };
