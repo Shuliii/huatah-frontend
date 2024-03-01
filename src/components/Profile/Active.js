@@ -85,11 +85,6 @@ const Active = () => {
               Potential Winning:{" "}
               <span style={{ color: "#00FF00" }}>{formattedPotential}</span>
             </div>
-            <AiTwotoneDelete
-              className={styles.deleteIcon}
-              color={"red"}
-              onClick={() => clickHandler(item)}
-            />
           </motion.li>
         );
       })
