@@ -7,7 +7,8 @@ export async function getBets(name) {
     //https://test-express-5gi8.onrender.com/${name}
     //http://localhost:3030/${name}
     //http://47.128.95.51:3030/${name}
-    const url = `https://huatah-backend.vercel.app/${name}`;
+    //https://huatah-backend.vercel.app
+    const url = `backend-service.default.svc.cluster.local/${name}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -31,7 +32,7 @@ export async function getBets(name) {
 
 export async function getBalance(profile) {
   const response = await fetch(
-    `https://huatah-backend.vercel.app/balance/${profile}`
+    `backend-service.default.svc.cluster.local/balance/${profile}`
   );
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
@@ -47,7 +48,7 @@ export async function getBalance(profile) {
 
 export async function getSummary(profile) {
   const response = await fetch(
-    `https://huatah-backend.vercel.app/summary/${profile}`
+    `backend-service.default.svc.cluster.local/summary/${profile}`
   );
 
   if (!response.ok) {
@@ -62,7 +63,7 @@ export async function getSummary(profile) {
 
 export async function getActive(profile) {
   const response = await fetch(
-    `https://huatah-backend.vercel.app/active/${profile}`
+    `backend-service.default.svc.cluster.local/active/${profile}`
   );
 
   if (!response.ok) {
@@ -77,13 +78,16 @@ export async function getActive(profile) {
 export async function postBet(cart) {
   try {
     console.log(cart);
-    const res = await fetch("https://huatah-backend.vercel.app/postbet", {
-      method: "POST",
-      body: JSON.stringify(cart),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "backend-service.default.svc.cluster.local/postbet",
+      {
+        method: "POST",
+        body: JSON.stringify(cart),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!res.ok) {
       const error = new Error("An error occured while fetching the events");
       console.error(`Request failed with status ${res.status}`);
@@ -102,7 +106,7 @@ export async function deleteBet(id) {
   try {
     console.log(id);
     const res = await fetch(
-      `https://huatah-backend.vercel.app/delete/${id}`,
+      `backend-service.default.svc.cluster.local/delete/${id}`,
       {
         method: "DELETE",
       }
