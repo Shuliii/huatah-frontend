@@ -17,7 +17,7 @@ const Footer = () => {
           <img src={logo} alt="huatah-logo" className={styles.logo} />
         </Link>
         <div>
-          &copy; 2023 Huat Ah. <span>All rights reserved.</span>
+          &copy; 2024 Huat Ah. <span>All rights reserved.</span>
         </div>
       </div>
 
