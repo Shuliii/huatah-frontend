@@ -11,9 +11,7 @@ const Login = ({ onClose }) => {
   const [error, setError] = useState("");
 
   const getUser = async (param) => {
-    const response = await fetch(
-      `https://huatah-backend.vercel.app/user/${param}`
-    );
+    const response = await fetch(`http://139.59.195.244:3030/user/${param}`);
     const resData = await response.json();
     return resData;
   };
