@@ -5,7 +5,6 @@ import styles from "./Summary.module.css";
 
 const Summary = () => {
   const summary = useSelector((state) => state.summary.data);
-  console.log(summary);
 
   const staggerVariants = {
     initial: {
