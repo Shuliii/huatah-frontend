@@ -9,7 +9,8 @@ export async function getBets(name) {
     //http://47.128.95.51:3030/${name}
     //https://huatah-backend.vercel.app
     //backend-service.default.svc.cluster.local
-    const url = `http://146.190.109.253:30000/${name}`;
+    //http://146.190.109.253:30000
+    const url = `https://www.huatah.co/bet/${name}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -32,9 +33,7 @@ export async function getBets(name) {
 }
 
 export async function getBalance(profile) {
-  const response = await fetch(
-    `http://146.190.109.253:30000/balance/${profile}`
-  );
+  const response = await fetch(`https://www.huatah.co/balance/${profile}`);
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
     console.error(`Request failed with status ${response.status}`);
@@ -48,9 +47,7 @@ export async function getBalance(profile) {
 }
 
 export async function getSummary(profile) {
-  const response = await fetch(
-    `http://146.190.109.253:30000/summary/${profile}`
-  );
+  const response = await fetch(`https://www.huatah.co/summary/${profile}`);
 
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
@@ -63,9 +60,7 @@ export async function getSummary(profile) {
 }
 
 export async function getActive(profile) {
-  const response = await fetch(
-    `http://146.190.109.253:30000/active/${profile}`
-  );
+  const response = await fetch(`https://www.huatah.co/active/${profile}`);
 
   if (!response.ok) {
     const error = new Error("An error occured while fetching the events");
@@ -79,7 +74,7 @@ export async function getActive(profile) {
 export async function postBet(cart) {
   try {
     console.log(cart);
-    const res = await fetch("http://146.190.109.253:30000/postbet", {
+    const res = await fetch("https://www.huatah.co/postbet", {
       method: "POST",
       body: JSON.stringify(cart),
       headers: {
@@ -103,7 +98,7 @@ export async function postBet(cart) {
 export async function deleteBet(id) {
   try {
     console.log(id);
-    const res = await fetch(`http://146.190.109.253:30000/delete/${id}`, {
+    const res = await fetch(`https://www.huatah.co/delete/${id}`, {
       method: "DELETE",
     });
 

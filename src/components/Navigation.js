@@ -8,7 +8,7 @@ const Navigation = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to="/Soccer"
+          to="/bet/Soccer"
         >
           Soccer
         </NavLink>
@@ -16,7 +16,7 @@ const Navigation = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to="/NBA"
+          to="/bet/NBA"
         >
           NBA
         </NavLink>
@@ -24,7 +24,7 @@ const Navigation = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to="/Dota2"
+          to="/bet/Dota2"
         >
           Dota2
         </NavLink>
@@ -32,7 +32,7 @@ const Navigation = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to="/CS"
+          to="/bet/CS"
         >
           CS
         </NavLink>
@@ -40,7 +40,7 @@ const Navigation = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? styles.active : undefined)}
-          to="/Valorant"
+          to="/bet/Valorant"
         >
           Valorant
         </NavLink>

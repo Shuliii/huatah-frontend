@@ -11,15 +11,20 @@ const Login = ({ onClose }) => {
   const [error, setError] = useState("");
 
   const getUser = async (param) => {
-    const response = await fetch(`http://146.190.109.253:30000/user/${param}`);
-    const resData = await response.json();
-    return resData;
+    try {
+      const response = await fetch(`https://www.huatah.co/user/${param}`);
+      const jsonData = await response.json(); // Parse response as JSON
+      return jsonData;
+    } catch (error) {
+      return { message: "Error", data: [] };
+    }
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const input = usernameRef.current.value;
     const response = await getUser(input);
+
     if (
       response.message === "successful" &&
       response.data[0].isActive === "True"
@@ -27,23 +32,19 @@ const Login = ({ onClose }) => {
       dispatch(
         authActions.logIn({
           name: input,
-          isAdmin: response.data[0].isAdmin === "True" ? true : false,
+          isAdmin: response.data[0].isAdmin === "True",
         })
       );
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("profile", input);
 
       onClose();
-    }
-
-    if (
+    } else if (
       response.message === "successful" &&
       response.data[0].isActive === "False"
     ) {
       setError("Please contact admin to activate the account!");
-    }
-
-    if (response.message !== "successful") {
+    } else {
       setError("Username does not exist, please create Username");
     }
   };
