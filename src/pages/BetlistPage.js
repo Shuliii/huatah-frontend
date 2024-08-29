@@ -34,7 +34,6 @@ const BetlistPage = () => {
   }
 
   if (data) {
-    // const { data } = useLoaderData();
     return <BetList data={data} />;
   }
 };

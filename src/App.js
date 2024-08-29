@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <NavigationPage />,
         children: [
           {
-            path: "/:name",
+            path: "/bet/:name",
             element: <BetListPage />,
             // loader: betLoader,
           },
