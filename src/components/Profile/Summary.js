@@ -15,7 +15,7 @@ const Summary = () => {
       opacity: 1,
       y: 0,
       transition: {
-        staggerChildren: 0.05, // Adjust the stagger duration as needed
+        staggerChildren: 0.05,
       },
     },
   };

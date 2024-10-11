@@ -10,7 +10,7 @@ export async function getBets(name) {
     //https://huatah-backend.vercel.app
     //backend-service.default.svc.cluster.local
     //http://146.190.109.253:30000
-    const url = `https://www.huatah.co/bet/${name}`;
+    const url = `https://www.huatah.co/api/${name}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {

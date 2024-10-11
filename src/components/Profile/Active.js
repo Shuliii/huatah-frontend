@@ -7,8 +7,6 @@ import Button from "../UI/Button";
 import { deleteBet, queryClient } from "../../util/http";
 import styles from "./Active.module.css";
 
-import { AiTwotoneDelete } from "react-icons/ai";
-
 const Active = () => {
   const active = useSelector((state) => state.activeBet.data);
   const [showModal, setShowModal] = useState(false);
@@ -26,7 +24,6 @@ const Active = () => {
       scale: 1,
       transition: {
         staggerChildren: 0.05, // Adjust the stagger duration as needed
-        // when: "beforeChildren", // Ensures that child animations are applied before the parent
       },
     },
   };
@@ -52,8 +49,6 @@ const Active = () => {
       closeHandler();
       setMessage(data);
       setShowMessage(true);
-      // navigate(".");
-      // console.log(data);
     },
   });
 
