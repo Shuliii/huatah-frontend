@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { cartActions } from "../store/cart-slice";
+import {useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {cartActions} from "../store/cart-slice";
 
 import EachBet from "./EachBet";
 
 import styles from "./BetItem.module.css";
-import { motion, AnimatePresence } from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 
-const BetItem = ({ item }) => {
+const BetItem = ({item}) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.auth.profile);
   const cart = useSelector((state) => state.cart.cart);
@@ -58,7 +58,7 @@ const BetItem = ({ item }) => {
       Bet_Name: data.name,
       Odds: data.odds,
     };
-    dispatch(cartActions.toggleToCart({ item: toBeDispatch }));
+    dispatch(cartActions.toggleToCart({item: toBeDispatch}));
   };
 
   //variants
@@ -150,7 +150,7 @@ const BetItem = ({ item }) => {
       <div className={styles.matchname}>
         <div>{item.match_name}</div>
         <div className={styles.dateContainer}>
-          <div>{`${day},${date}`}</div>
+          <div>{`${day}, ${date}`}</div>
           <div>{time}</div>
         </div>
       </div>
@@ -161,9 +161,9 @@ const BetItem = ({ item }) => {
       <AnimatePresence>
         {isExpand && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{height: 0, opacity: 0}}
+            animate={{height: "auto", opacity: 1}}
+            exit={{height: 0, opacity: 0}}
             className={styles.betlistmore}
           >
             {moreBetHelper}
