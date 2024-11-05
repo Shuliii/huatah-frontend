@@ -5,8 +5,11 @@ import Modal from "./UI/Modal";
 import Button from "./UI/Button";
 import styles from "./Login.module.css";
 
+import { login } from "../util/http";
+
 const Login = ({ onClose }) => {
   const usernameRef = useRef();
+  const passwordRef = useRef();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
 
@@ -23,29 +26,31 @@ const Login = ({ onClose }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const input = usernameRef.current.value;
-    const response = await getUser(input);
+    const password = passwordRef.current.value;
+    const response = await login(input, password);
+    console.log(response);
 
-    if (
-      response.message === "successful" &&
-      response.data[0].isActive === "True"
-    ) {
+    if (response.message === "Login successful!" && response.isActive === "1") {
+      console.log("this");
       dispatch(
         authActions.logIn({
           name: input,
-          isAdmin: response.data[0].isAdmin === "True",
         })
       );
+      localStorage.setItem("token", response.token);
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("profile", input);
 
       onClose();
-    } else if (
-      response.message === "successful" &&
-      response.data[0].isActive === "False"
-    ) {
-      setError("Please contact admin to activate the account!");
-    } else {
-      setError("Username does not exist, please create Username");
+    }
+    // else if (
+    //   response.message === "Login successful!" &&
+    //   response.isActive !== "1"
+    // ) {
+    //   setError(response.message);
+    // }
+    else {
+      setError(response.message);
     }
   };
   return (
@@ -61,12 +66,21 @@ const Login = ({ onClose }) => {
             autoComplete="off"
             ref={usernameRef}
           ></input>
+          <input
+            required
+            name="password"
+            type="password"
+            placeholder="Password"
+            autoComplete="off"
+            ref={passwordRef}
+          ></input>
           <Button type="submit">Login to your account</Button>
+          {/* <Button type="submit">Register</Button> */}
         </form>
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.modalLast}>
-          <p>Don't have an account?</p>
-          <p>Please contact admin!</p>
+          <p>Forgot Password</p>
+          <p>Don't have an account? Sign up now</p>
         </div>
       </div>
     </Modal>

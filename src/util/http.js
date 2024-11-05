@@ -115,3 +115,41 @@ export async function deleteBet(id) {
     return null;
   }
 }
+
+export async function login(input, password) {
+  try {
+    const res = await fetch("http://localhost:3030/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: input,
+        password,
+      }),
+    });
+    const response = await res.json();
+    console.log(response);
+
+    return response;
+  } catch (error) {
+    console.error("error");
+  }
+}
+
+export async function testtoken() {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch("http://localhost:3030/testtoken", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const response = await res.json();
+    if (response.message === "testtoken is successful") {
+      return true;
+    } else return false;
+  } catch (error) {
+    console.error(error);
+  }
+}

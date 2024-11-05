@@ -12,7 +12,7 @@
 .modalContent > form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 30px;
   text-align: left;
 }
 
@@ -31,6 +31,7 @@
 
 .modalContent > .error {
   color: red;
+  text-align: center;
 }
 
 .modalContent > .modalLast {

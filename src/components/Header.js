@@ -55,6 +55,7 @@ const Header = () => {
     dispatch(activeBetActions.removeData());
     dispatch(summaryActions.removeData());
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("token");
     localStorage.removeItem("profile");
     navigate("/");
   };

@@ -1,0 +1,14 @@
+services:
+  node:
+    image: node:23-alpine
+    container_name: nodereact
+    volumes:
+      - ${PWD}:/app/
+    ports:
+      - 3000:3000
+    entrypoint: ["tail", "-f", "/dev/null"]
+    networks:
+      - login_nodeapplication
+networks:
+  login_nodeapplication:
+    external: true
