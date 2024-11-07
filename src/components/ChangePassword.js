@@ -4,27 +4,37 @@ import { useRef, useState } from "react";
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
 
-import { register } from "../util/http";
+import { changePassword } from "../util/http";
 
-const Register = ({ onClose }) => {
+const ChangePassword = ({ onClose }) => {
   const usernameRef = useRef();
-  const passwordRef = useRef();
+  const newpasswordRef = useRef();
+  const newpassword2Ref = useRef();
+
   const [error, setError] = useState("");
   const [successful, setSuccessful] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const input = usernameRef.current.value;
-    const password = passwordRef.current.value;
-    const response = await register(input, password);
-    console.log(response);
+    const newpassword = newpasswordRef.current.value;
+    const newpassword2 = newpassword2Ref.current.value;
 
-    if (response.message === "successful") {
-      setSuccessful("Registration complete!");
-      setTimeout(onClose, 1000);
-    }
-    if (response.message === "fail") {
-      setError("Username has already taken");
+    if (newpassword !== newpassword2) {
+      setError("Passord Mismatch");
+    } else {
+      const response = await changePassword(input, newpassword);
+      if (response.message === "successful") {
+        setSuccessful("Password Change Successful!");
+        setTimeout(onClose, 1000);
+      }
+      if (response.message === "Username not found") {
+        setError("Username not found!");
+      }
+
+      if (response.message === "fail") {
+        setError("Password Change Failed!");
+      }
     }
   };
   return (
@@ -32,7 +42,7 @@ const Register = ({ onClose }) => {
       <div
         className={`${styles.modalContent} ${successful && styles.backdrop}`}
       >
-        <h1>Register</h1>
+        <h1>Change Password</h1>
         <form onSubmit={submitHandler}>
           <input
             required
@@ -44,11 +54,19 @@ const Register = ({ onClose }) => {
           ></input>
           <input
             required
-            name="password"
+            name="newpassword"
             type="password"
-            placeholder="Password"
+            placeholder="New Password"
             autoComplete="off"
-            ref={passwordRef}
+            ref={newpasswordRef}
+          ></input>
+          <input
+            required
+            name="newpassword2"
+            type="password"
+            placeholder="Re-type Password"
+            autoComplete="off"
+            ref={newpassword2Ref}
           ></input>
           <Button type="submit">Change Password</Button>
           {/* <Button type="submit">Register</Button> */}
@@ -68,4 +86,4 @@ const Register = ({ onClose }) => {
   );
 };
 
-export default Register;
+export default ChangePassword;

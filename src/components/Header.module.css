@@ -40,7 +40,30 @@ header > a > .logo {
 }
 
 .buttonContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.buttonContainer > button {
   width: 100px;
+}
+
+@media (max-width: 600px) {
+  .buttonContainer {
+    display: flex;
+    gap: 15px;
+  }
+
+  .buttonContainer > button {
+    width: 75px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttonContainer {
+    display: flex;
+    gap: 10px;
+  }
 }
 
 .loggedIn {

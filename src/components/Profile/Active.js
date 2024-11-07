@@ -14,6 +14,8 @@ const Active = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
 
+  console.log(active);
+
   const staggerVariants = {
     initial: {
       opacity: 0,
@@ -28,10 +30,10 @@ const Active = () => {
     },
   };
 
-  const clickHandler = (item) => {
-    setShowModal(true);
-    setBetItem(item);
-  };
+  // const clickHandler = (item) => {
+  //   setShowModal(true);
+  //   setBetItem(item);
+  // };
 
   const closeHandler = () => {
     setShowModal(false);
@@ -53,7 +55,7 @@ const Active = () => {
   });
 
   const liHelper =
-    active !== null && active !== undefined ? (
+    active !== null && active !== undefined && active.length !== 0 ? (
       active.map((item) => {
         //Potential Winning Helper
         const potential = (+item.Odds - 1) * item.Amount;

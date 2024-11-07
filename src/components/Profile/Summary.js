@@ -46,7 +46,7 @@ const Summary = () => {
     });
   return (
     <div className={styles.tableContainer}>
-      {summary && (
+      {summary && summary.length > 0 ? (
         <motion.table
           initial="initial"
           animate="animate"
@@ -64,8 +64,9 @@ const Summary = () => {
           </thead>
           <motion.tbody>{trHelper}</motion.tbody>
         </motion.table>
+      ) : (
+        <div>There are no past bets!</div>
       )}
-      {!summary && <div>There are no past bets!</div>}
     </div>
   );
 };

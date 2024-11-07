@@ -19,26 +19,23 @@ const EachBet = ({ item, onClick, isBetActive }) => {
   const dispatch = useDispatch();
 
   const plusClickHandler = async () => {
-    const res = await testtoken();
-    console.log(res);
-
     if (!isLoggedIn) {
       setError("Please LogIn before placing any bets!");
       document.body.style.overflow = "hidden";
       return;
     }
 
-    if (!res) {
-      dispatch(cartActions.removeAllCart());
-      dispatch(authActions.logOut());
-      dispatch(activeBetActions.removeData());
-      dispatch(summaryActions.removeData());
-      setError("Please relogin!");
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("token");
-      localStorage.removeItem("profile");
-      return;
-    }
+    // if (!res) {
+    //   dispatch(cartActions.removeAllCart());
+    //   dispatch(authActions.logOut());
+    //   dispatch(activeBetActions.removeData());
+    //   dispatch(summaryActions.removeData());
+    //   setError("Please relogin!");
+    //   localStorage.removeItem("isLoggedIn");
+    //   localStorage.removeItem("token");
+    //   localStorage.removeItem("profile");
+    //   return;
+    // }
 
     const data = {
       name: item.name,

@@ -7,31 +7,19 @@ import styles from "./Login.module.css";
 
 import { login } from "../util/http";
 
-const Login = ({ onClose }) => {
+const Login = ({ onClose, onClick }) => {
   const usernameRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
-
-  const getUser = async (param) => {
-    try {
-      const response = await fetch(`https://www.huatah.co/user/${param}`);
-      const jsonData = await response.json(); // Parse response as JSON
-      return jsonData;
-    } catch (error) {
-      return { message: "Error", data: [] };
-    }
-  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const input = usernameRef.current.value;
     const password = passwordRef.current.value;
     const response = await login(input, password);
-    console.log(response);
 
     if (response.message === "Login successful!" && response.isActive === "1") {
-      console.log("this");
       dispatch(
         authActions.logIn({
           name: input,
@@ -42,14 +30,7 @@ const Login = ({ onClose }) => {
       localStorage.setItem("profile", input);
 
       onClose();
-    }
-    // else if (
-    //   response.message === "Login successful!" &&
-    //   response.isActive !== "1"
-    // ) {
-    //   setError(response.message);
-    // }
-    else {
+    } else {
       setError(response.message);
     }
   };
@@ -79,7 +60,7 @@ const Login = ({ onClose }) => {
         </form>
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.modalLast}>
-          <p>Forgot Password</p>
+          <p onClick={onClick}>Forgot Password</p>
           <p>Don't have an account? Sign up now</p>
         </div>
       </div>

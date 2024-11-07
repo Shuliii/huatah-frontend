@@ -10,7 +10,7 @@ export async function getBets(name) {
     //https://huatah-backend.vercel.app
     //backend-service.default.svc.cluster.local
     //http://146.190.109.253:30000
-    const url = `https://www.huatah.co/api/${name}`;
+    const url = `https://huatah.co/api/${name}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -33,51 +33,133 @@ export async function getBets(name) {
 }
 
 export async function getBalance(profile) {
-  const response = await fetch(`https://www.huatah.co/balance/${profile}`);
-  if (!response.ok) {
-    const error = new Error("An error occured while fetching the events");
-    console.error(`Request failed with status ${response.status}`);
-    throw error;
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch(`https://huatah.co/balance/${profile}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error(
+        `Request failed with status ${response.status}`,
+        errorData.message
+      );
+
+      if (response.status === 401) {
+        // Handle token expiration
+        // Remove the token from localStorage
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("isLoggedIn");
+        // localStorage.removeItem("profile");
+        // Optionally, you can dispatch a logout action if using Redux
+        // dispatch(logoutAction());
+
+        // Redirect to the login page
+        // Adjust the path as needed
+        return null;
+      }
+
+      // Handle other non-OK responses
+      return {};
+    }
+
+    const { data } = await response.json();
+    const balance = data ? data[0].balance : "0.00";
+    return balance;
+  } catch (error) {
+    return { message: "error", data: [] };
   }
-
-  const { data } = await response.json();
-  const balance = data ? data[0].balance : "0.00";
-
-  return balance;
 }
 
 export async function getSummary(profile) {
-  const response = await fetch(`https://www.huatah.co/summary/${profile}`);
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch(`https://huatah.co/summary/${profile}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error(
+        `Request failed with status ${response.status}`,
+        errorData.message
+      );
 
-  if (!response.ok) {
-    const error = new Error("An error occured while fetching the events");
-    console.error(`Request failed with status ${response.status}`);
-    throw error;
+      if (response.status === 401) {
+        // Handle token expiration
+        // Remove the token from localStorage
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("isLoggedIn");
+        // localStorage.removeItem("profile");
+        // Optionally, you can dispatch a logout action if using Redux
+        // dispatch(logoutAction());
+
+        // Redirect to the login page
+        // Adjust the path as needed
+        return { message: "token expired", data: [] };
+      }
+
+      // Handle other non-OK responses
+      return {};
+    }
+    const resData = await response.json();
+    return resData;
+  } catch (error) {
+    return { message: "error", data: [] };
   }
-
-  const resData = await response.json();
-  return resData;
 }
 
 export async function getActive(profile) {
-  const response = await fetch(`https://www.huatah.co/active/${profile}`);
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch(`https://huatah.co/active/${profile}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error(
+        `Request failed with status ${response.status}`,
+        errorData.message
+      );
 
-  if (!response.ok) {
-    const error = new Error("An error occured while fetching the events");
-    console.error(`Request failed with status ${response.status}`);
-    throw error;
+      if (response.status === 401) {
+        // Handle token expiration
+        // Remove the token from localStorage
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("isLoggedIn");
+        // localStorage.removeItem("profile");
+        // Optionally, you can dispatch a logout action if using Redux
+        // dispatch(logoutAction());
+
+        // Redirect to the login page
+        // Adjust the path as needed
+        return { message: "token expired", data: [] };
+      }
+
+      // Handle other non-OK responses
+      return {};
+    }
+    const resData = await response.json();
+    return resData;
+  } catch (error) {
+    return { message: "error", data: [] };
   }
-  const resData = await response.json();
-  return resData;
 }
 
 export async function postBet(cart) {
+  const token = localStorage.getItem("token");
   try {
     console.log(cart);
-    const res = await fetch("https://www.huatah.co/postbet", {
+    const res = await fetch("https://huatah.co/postbet", {
       method: "POST",
       body: JSON.stringify(cart),
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -98,7 +180,7 @@ export async function postBet(cart) {
 export async function deleteBet(id) {
   try {
     console.log(id);
-    const res = await fetch(`https://www.huatah.co/delete/${id}`, {
+    const res = await fetch(`https://huatah.co/delete/${id}`, {
       method: "DELETE",
     });
 
@@ -118,7 +200,7 @@ export async function deleteBet(id) {
 
 export async function login(input, password) {
   try {
-    const res = await fetch("http://localhost:3030/login", {
+    const res = await fetch("https://huatah.co/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +211,6 @@ export async function login(input, password) {
       }),
     });
     const response = await res.json();
-    console.log(response);
 
     return response;
   } catch (error) {
@@ -137,19 +218,67 @@ export async function login(input, password) {
   }
 }
 
-export async function testtoken() {
+// export async function testtoken() {
+//   try {
+//     const token = localStorage.getItem("token");
+//     const res = await fetch("http://huatah.co/testtoken", {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     const response = await res.json();
+//     if (response.message === "testtoken is successful") {
+//       return true;
+//     } else return false;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+export async function register(username, password) {
   try {
-    const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:3030/testtoken", {
+    const res = await fetch("https://huatah.co/register", {
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
     });
     const response = await res.json();
-    if (response.message === "testtoken is successful") {
-      return true;
-    } else return false;
+    if (!res.ok) {
+      return { message: "fail" };
+    }
+
+    return { message: "successful" };
   } catch (error) {
-    console.error(error);
+    console.log("we will do this later");
+  }
+}
+
+export async function changePassword(username, password) {
+  try {
+    const res = await fetch("https://huatah.co/changePassword", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const response = await res.json();
+    if (!res.ok) {
+      if (response.message === "Username not found")
+        return { message: response.message };
+      return { message: "fail" };
+    }
+
+    return { message: "successful" };
+  } catch (error) {
+    console.log("we will do this later");
   }
 }

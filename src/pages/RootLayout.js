@@ -1,17 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
-import { getBalance, getSummary, getActive } from "../util/http";
+import { authActions } from "../store/auth-slice";
+import { cartActions } from "../store/cart-slice";
 import { activeBetActions } from "../store/activeBet-slice";
 import { summaryActions } from "../store/summary-slice";
 
+import { getBalance, getSummary, getActive } from "../util/http";
+import Modal from "../components/UI/Modal";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
+  const [hasError, setError] = useState("");
   const profile = useSelector((state) => state.auth.profile);
 
   const {
@@ -50,6 +54,10 @@ const RootLayout = () => {
     enabled: profile !== null,
   });
 
+  // console.log(balanceData, summaryData, activeData);
+  // const summaryHelper = summaryData.data;
+  // console.log(summaryHelper);
+
   useEffect(() => {
     if (balanceData) {
       dispatch(summaryActions.replaceBalance({ item: balanceData }));
@@ -63,6 +71,20 @@ const RootLayout = () => {
       dispatch(activeBetActions.replaceData({ item: activeData.data }));
     }
   }, [balanceData, summaryData, activeData, dispatch]);
+
+  useEffect(() => {
+    if (profile) {
+      if (!activeData || activeData.message !== "token expired") {
+        setError(""); // Clear lingering error when profile is set and no token expiration
+      }
+    }
+  }, [profile, activeData]);
+
+  useEffect(() => {
+    if (activeData && activeData.message === "token expired") {
+      setError("Please relogin");
+    }
+  }, [activeData]);
 
   if (balanceIsLoading || summaryIsLoading || activeIsLoading) {
     return <p style={{ textAlign: "center" }}>Loading...</p>;
@@ -82,6 +104,26 @@ const RootLayout = () => {
     );
   }
 
+  const closeHandler = () => {
+    dispatch(cartActions.removeAllCart());
+    dispatch(authActions.logOut());
+    dispatch(activeBetActions.removeData());
+    dispatch(summaryActions.removeData());
+    setError("");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("token");
+    localStorage.removeItem("profile");
+    document.body.style.overflow = "unset";
+  };
+
+  const modalContent = {
+    display: "flex",
+    flexDirection: "column",
+    padding: "32px",
+    gap: "32px",
+    textAlign: "center",
+  };
+
   return (
     <>
       <Header />
@@ -89,6 +131,12 @@ const RootLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      {hasError && (
+        <Modal onClose={closeHandler}>
+          {/* <div className={styles.modalContent}>{hasError}</div> */}
+          <div style={modalContent}>{hasError}</div>
+        </Modal>
+      )}
     </>
   );
 };

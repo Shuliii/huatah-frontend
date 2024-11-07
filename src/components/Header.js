@@ -10,6 +10,8 @@ import { summaryActions } from "../store/summary-slice";
 
 import Button from "./UI/Button";
 import Login from "./Login";
+import Register from "./Register";
+import ChangePassword from "./ChangePassword";
 import Cart from "./Cart";
 import ShowSuccess from "./ShowSuccess";
 
@@ -27,6 +29,8 @@ const Header = () => {
   const balance = useSelector((state) => state.summary.balance);
 
   const [showLogIn, setshowLogIn] = useState(false);
+  const [showRegister, setshowRegister] = useState(false);
+  const [showChangePassword, setshowChangePassword] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [successModalData, setSuccessModalData] = useState([]);
@@ -35,6 +39,17 @@ const Header = () => {
   const loginHandler = () => {
     document.body.style.overflow = "hidden";
     setshowLogIn(true);
+  };
+
+  const registerHandler = () => {
+    document.body.style.overflow = "hidden";
+    setshowRegister(true);
+  };
+
+  const changePasswordHandler = () => {
+    document.body.style.overflow = "hidden";
+    setshowLogIn(false);
+    setshowChangePassword(true);
   };
 
   const cartHandler = () => {
@@ -47,6 +62,8 @@ const Header = () => {
     setshowLogIn(false);
     setShowCart(false);
     setShowSuccess(false);
+    setshowRegister(false);
+    setshowChangePassword(false);
   };
 
   const logoutHandler = () => {
@@ -81,6 +98,9 @@ const Header = () => {
         <div className={styles.buttonContainer}>
           <Button type="button" onClick={loginHandler}>
             Login
+          </Button>
+          <Button type="button" onClick={registerHandler}>
+            Register
           </Button>
         </div>
       )}
@@ -126,7 +146,17 @@ const Header = () => {
       )}
 
       <AnimatePresence>
-        {showLogIn && <Login onClose={closeHandler} />}
+        {showLogIn && (
+          <Login onClick={changePasswordHandler} onClose={closeHandler} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showChangePassword && <ChangePassword onClose={closeHandler} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showRegister && <Register onClose={closeHandler} />}
       </AnimatePresence>
 
       <AnimatePresence>
